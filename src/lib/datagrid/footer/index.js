@@ -1,7 +1,9 @@
 import React from 'react';
 
 export default ({ children }) => (
-  <table>
-    {children}
-  </table>
+  <tfoot>
+    <tr>
+      <td>{children}</td>
+    </tr>
+  </tfoot>
 );
