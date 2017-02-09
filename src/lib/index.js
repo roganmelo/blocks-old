@@ -1,2 +1,5 @@
-export { default as Datagrid } from './datagrid/datagrid';
-export { default as Sidebar } from './sidebar/sidebar';
+// datagrid
+export { default as Datagrid } from './datagrid';
+
+// sidebar
+export { default as Sidebar } from './sidebar';
