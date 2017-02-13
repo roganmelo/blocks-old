@@ -7,13 +7,12 @@ export default class Dropdown extends Component {
     const { modelProp, required, validateOn, defaultOption, options, ...selectProps } = props;
 
     this.state = { errorMessage: '' };
-    this.modelProp = modelProp;
     this.required = required;
     this.validateOn = validateOn;
     this.defaultOption = defaultOption;
     this.options = options;
     this.selectProps = selectProps;
-    this.model = context.model;
+    this.model = context.model[modelProp];
   }
 
   componentDidMount() {
@@ -25,24 +24,20 @@ export default class Dropdown extends Component {
   }
 
   setup() {
-    if(this.required) {
-      if(this.validateOn === 'submit') this.select.form.addEventListener('submit', this.validate.bind(this));
-      else this.select.addEventListener('change', this.validate.bind(this));
-    }
+    if(this.validateOn === 'submit') this.select.form.addEventListener('submit', this.validate.bind(this));
+    else this.select.addEventListener('change', this.validate.bind(this));
   }
 
   destroy() {
     // this.select.parentNode.replaceChild(this.select.cloneNode(true), this.select);
 
-    if(this.required) {
-      if(this.validateOn === 'submit') this.select.form.removeEventListener('submit', this.validate.bind(this));
-      else this.select.removeEventListener('change', this.validate.bind(this));
-    }
+    if(this.validateOn === 'submit') this.select.form.removeEventListener('submit', this.validate.bind(this));
+    else this.select.removeEventListener('change', this.validate.bind(this));
   }
 
   clearError() {
     this.setState({ errorMessage: '' });
-    this.model[this.modelProp] = '';
+    this.model = '';
   }
 
   setError(error) {
@@ -51,13 +46,14 @@ export default class Dropdown extends Component {
   }
 
   validate() {
-    let selectValue = this.select.value;
-    let defaultOption = this.defaultOption.key;
+    if(this.required) {
+      this.clearError();
 
-    this.clearError();
-
-    if(selectValue === defaultOption) this.setError(this.required);
-    else this.model[this.modelProp] = selectValue;
+      if(this.select.value === this.defaultOption.key) this.setError(this.required);
+      else this.model = this.select.value;
+    } else {
+      this.model = this.select.value;
+    }
   }
 
   render() {

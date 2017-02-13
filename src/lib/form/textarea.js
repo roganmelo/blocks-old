@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Validator from 'validator';
 
-export default class Input extends Component {
+export default class TextArea extends Component {
   constructor(props, context) {
     super();
 
@@ -9,11 +9,10 @@ export default class Input extends Component {
 
     this.state = { errorMessage: '' };
     this.label = label;
-    this.modelProp = modelProp;
     this.validateOn = validateOn;
     this.validators = validators;
     this.inputProps = inputProps;
-    this.model = context.model;
+    this.model = context.model[modelProp];
   }
 
   componentDidMount() {
@@ -25,36 +24,32 @@ export default class Input extends Component {
   }
 
   setup() {
-    if(this.validators) {
-      switch (this.validateOn) {
-        case 'submit':
-          this.input.form.addEventListener('submit', this.validate.bind(this));
-          break;
-        case 'blur':
-          this.input.addEventListener('blur', this.validate.bind(this));
-          this.input.addEventListener('input', this.clearError());
-          break;
-        default:
-          this.input.addEventListener('input', this.validate.bind(this));
-      }
+    switch (this.validateOn) {
+      case 'submit':
+        this.textarea.form.addEventListener('submit', this.validate.bind(this));
+        break;
+      case 'blur':
+        this.textarea.addEventListener('blur', this.validate.bind(this));
+        this.textarea.addEventListener('input', this.clearError());
+        break;
+      default:
+        this.textarea.addEventListener('input', this.validate.bind(this));
     }
   }
 
   destroy() {
-    if(this.validators) {
-      // this.input.parentNode.replaceChild(this.input.cloneNode(true), this.input);
+    // this.textarea.parentNode.replaceChild(this.textarea.cloneNode(true), this.textarea);
 
-      switch (this.validateOn) {
-        case 'submit':
-          this.input.form.removeEventListener('submit', this.validate.bind(this));
-          break;
-        case 'blur':
-          this.input.removeEventListener('blur', this.validate.bind(this));
-          this.input.removeEventListener('input', this.clearError());
-          break;
-        default:
-          this.input.removeEventListener('input', this.validate.bind(this));
-      }
+    switch (this.validateOn) {
+      case 'submit':
+        this.textarea.form.removeEventListener('submit', this.validate.bind(this));
+        break;
+      case 'blur':
+        this.textarea.removeEventListener('blur', this.validate.bind(this));
+        this.textarea.removeEventListener('input', this.clearError());
+        break;
+      default:
+        this.textarea.removeEventListener('input', this.validate.bind(this));
     }
   }
 
@@ -81,24 +76,26 @@ export default class Input extends Component {
 
   clearError() {
     this.setState({ errorMessage: '' });
-    this.model[this.modelProp] = '';
+    this.model = '';
   }
 
-  setError(error) {
-    const { errorMessage } = error;
+  setError(errorMessage) {
     this.setState({ errorMessage });
   }
 
   validate(event) {
-    let inputValue = this.input.value;
-    let error = this.findError(inputValue);
+    if(this.validators) {
+      let error = this.findError(this.textarea.value);
 
-    event.preventDefault();
+      event.preventDefault();
 
-    this.clearError();
+      this.clearError();
 
-    if(error) this.setError(error);
-    else this.model[this.modelProp] = inputValue;
+      if(error) this.setError(error.errorMessage);
+      else this.model = this.textarea.value;
+    } else {
+      this.model = this.textarea.value;
+    }
   }
 
   render() {
@@ -115,11 +112,11 @@ export default class Input extends Component {
     return (
       <div style={{position: 'relative'}}>
         <label htmlFor={this.props.id}>{this.label}</label>
-        <input
+        <textarea
           style={{borderColor: this.state.errorMessage ? 'red' : ''}}
-          ref={input => this.input = input}
+          ref={textarea => this.textarea = textarea}
           {...this.inputProps}
-        />
+        ></textarea>
         {
           this.state.errorMessage && <span style={spanStyle}>{this.state.errorMessage}</span>
         }
@@ -128,6 +125,6 @@ export default class Input extends Component {
   }
 }
 
-Input.contextTypes = {
+TextArea.contextTypes = {
   model: React.PropTypes.object
 };
