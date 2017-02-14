@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Validator from 'validator';
 
+import DeepSet from '../utils/deep-set';
+
 export default class TextArea extends Component {
   constructor(props, context) {
     super();
@@ -8,15 +10,21 @@ export default class TextArea extends Component {
     const { label, modelProp, validateOn, validators, ...inputProps } = props;
 
     this.state = { errorMessage: '' };
+
     this.label = label;
+    this.modelProp = modelProp;
     this.validateOn = validateOn;
     this.validators = validators;
     this.inputProps = inputProps;
-    this.model = context.model[modelProp];
+    this.model = context.model;
   }
 
   componentDidMount() {
     this.setup();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps);
   }
 
   componentWillUnmount() {
@@ -24,32 +32,20 @@ export default class TextArea extends Component {
   }
 
   setup() {
-    switch (this.validateOn) {
-      case 'submit':
-        this.textarea.form.addEventListener('submit', this.validate.bind(this));
-        break;
-      case 'blur':
-        this.textarea.addEventListener('blur', this.validate.bind(this));
-        this.textarea.addEventListener('input', this.clearError());
-        break;
-      default:
-        this.textarea.addEventListener('input', this.validate.bind(this));
+    if(this.validateOn === 'blur') {
+      this.textarea.addEventListener('blur', this.validate.bind(this));
+      this.textarea.addEventListener('input', this.clearError());
+    } else {
+      this.textarea.addEventListener('input', this.validate.bind(this));
     }
   }
 
   destroy() {
-    // this.textarea.parentNode.replaceChild(this.textarea.cloneNode(true), this.textarea);
-
-    switch (this.validateOn) {
-      case 'submit':
-        this.textarea.form.removeEventListener('submit', this.validate.bind(this));
-        break;
-      case 'blur':
-        this.textarea.removeEventListener('blur', this.validate.bind(this));
-        this.textarea.removeEventListener('input', this.clearError());
-        break;
-      default:
-        this.textarea.removeEventListener('input', this.validate.bind(this));
+    if(this.validateOn === 'blur') {
+      this.textarea.removeEventListener('blur', this.validate.bind(this));
+      this.textarea.removeEventListener('input', this.clearError());
+    } else {
+      this.textarea.removeEventListener('input', this.validate.bind(this));
     }
   }
 
@@ -69,32 +65,31 @@ export default class TextArea extends Component {
         case 'regexp':
           return (!v.validator.test(inputValue));
         default:
-          throw new Error('Validator can only be a function, string or regex');
+          throw new Error('The validators can only be a function, string or regex.');
       }
     });
   }
 
   clearError() {
     this.setState({ errorMessage: '' });
-    this.model = '';
   }
 
   setError(errorMessage) {
     this.setState({ errorMessage });
+    DeepSet(this.model, this.modelProp, '');
   }
 
   validate(event) {
     if(this.validators) {
       let error = this.findError(this.textarea.value);
 
-      event.preventDefault();
-
       this.clearError();
 
-      if(error) this.setError(error.errorMessage);
-      else this.model = this.textarea.value;
+      error
+        ? this.setError(error.errorMessage)
+        : DeepSet(this.model, this.modelProp, this.textarea.value);
     } else {
-      this.model = this.textarea.value;
+      DeepSet(this.model, this.modelProp, this.textarea.value);
     }
   }
 

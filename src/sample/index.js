@@ -41,6 +41,8 @@ ReactDOM.render((
             label: 'option 2'
           }
         ]}
+        keyProp='key'
+        labelProp='label'
       />
       <Checkbox
         label='Field 3'
@@ -74,7 +76,7 @@ ReactDOM.render((
           { validator: /W3Schools/g, errorMessage: 'Invalid format.' }
         ]}
       />
-      <button type='submit'>Save</button>
+      <button type='button'>Save</button>
     </Form>
   </div>
 ), document.getElementById('root'));

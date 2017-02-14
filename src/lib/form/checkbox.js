@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
 
+import DeepSet from '../utils/deep-set';
+
 export default class Checkbox extends Component {
   constructor(props, context) {
     super();
 
     const { type, label, modelProp, ...checkboxProps } = props;
 
-    if(type && type !== 'checkbox') throw new Error('This component works only with checkbox.');
+    if(type && type !== 'checkbox')
+      throw new Error('This component works only with checkbox.');
 
     this.label = label;
+    this.modelProp = modelProp;
     this.checkboxProps = checkboxProps;
-    this.model = context.model[modelProp];
+    this.model = context.model;
   }
 
   componentDidMount() {
     this.setup();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps);
   }
 
   componentWillUnmount() {
@@ -26,18 +34,13 @@ export default class Checkbox extends Component {
   }
 
   destroy() {
-    // this.select.parentNode.replaceChild(this.select.cloneNode(true), this.select);
-
     this.checkbox.removeEventListener('click', this.setValue.bind(this));
   }
 
   setValue() {
-    if(!Array.isArray(this.model)) {
-      this.model = this.checkbox.checked;
-    } else {
-      if(this.checkbox.checked) this.model.push(this.checkbox.value);
-      else this.model.splice(this.model.indexOf(this.checkbox.value), 1);
-    }
+    let isCheckbox = true;
+
+    DeepSet(this.model, this.modelProp, this.checkbox.value, isCheckbox, this.checkbox.checked);
   }
 
   render() {

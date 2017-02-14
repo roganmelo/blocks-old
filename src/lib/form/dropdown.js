@@ -1,22 +1,34 @@
 import React, { Component } from 'react';
 
+import DeepSet from '../utils/deep-set';
+
 export default class Dropdown extends Component {
   constructor(props, context) {
     super();
 
-    const { modelProp, required, validateOn, defaultOption, options, ...selectProps } = props;
+    const { modelProp, required, validateOn, defaultOption, options, keyProp, labelProp, ...selectProps } = props;
 
-    this.state = { errorMessage: '' };
+    this.state = {
+      options,
+      errorMessage: ''
+    };
+
+    this.modelProp = modelProp;
     this.required = required;
     this.validateOn = validateOn;
     this.defaultOption = defaultOption;
-    this.options = options;
+    this.keyProp = keyProp;
+    this.labelProp = labelProp;
     this.selectProps = selectProps;
-    this.model = context.model[modelProp];
+    this.model = context.model;
   }
 
   componentDidMount() {
     this.setup();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps);
   }
 
   componentWillUnmount() {
@@ -24,35 +36,31 @@ export default class Dropdown extends Component {
   }
 
   setup() {
-    if(this.validateOn === 'submit') this.select.form.addEventListener('submit', this.validate.bind(this));
-    else this.select.addEventListener('change', this.validate.bind(this));
+    this.select.addEventListener('change', this.validate.bind(this));
   }
 
   destroy() {
-    // this.select.parentNode.replaceChild(this.select.cloneNode(true), this.select);
-
-    if(this.validateOn === 'submit') this.select.form.removeEventListener('submit', this.validate.bind(this));
-    else this.select.removeEventListener('change', this.validate.bind(this));
+    this.select.removeEventListener('change', this.validate.bind(this));
   }
 
   clearError() {
     this.setState({ errorMessage: '' });
-    this.model = '';
   }
 
-  setError(error) {
-    const { errorMessage } = error;
+  setError(errorMessage) {
     this.setState({ errorMessage });
+    DeepSet(this.model, this.modelProp, '');
   }
 
   validate() {
     if(this.required) {
       this.clearError();
 
-      if(this.select.value === this.defaultOption.key) this.setError(this.required);
-      else this.model = this.select.value;
+      this.select.value === this.defaultOption.key
+        ? this.setError(this.required.errorMessage)
+        : DeepSet(this.model, this.modelProp, this.select.value);
     } else {
-      this.model = this.select.value;
+      DeepSet(this.model, this.modelProp, this.select.value);
     }
   }
 
@@ -79,7 +87,14 @@ export default class Dropdown extends Component {
             this.defaultOption && <option value={this.defaultOption.key}>{this.defaultOption.label}</option>
           }
           {
-            this.options.map(o => <option key={o.key} value={o.key}>{o.label}</option>)
+            this.state.options.map(o =>
+              <option
+                key={o[this.keyProp]}
+                value={o[this.keyProp]}
+              >
+                {o[this.labelProp]}
+              </option>
+            )
           }
         </select>
         {

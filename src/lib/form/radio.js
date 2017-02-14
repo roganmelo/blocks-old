@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import DeepSet from '../utils/deep-set';
+
 export default class Radio extends Component {
   constructor(props, context) {
     super();
@@ -7,16 +9,21 @@ export default class Radio extends Component {
     const { type, name, label, modelProp, ...radioProps } = props;
 
     if(type && type !== 'radio') throw new Error('This component works only with radio.');
-    if(!name) throw new Error('Name is required');
+    if(!name) throw new Error('The property name is required.');
 
     this.label = label;
     this.name = name;
+    this.modelProp = modelProp;
     this.radioProps = radioProps;
-    this.model = context.model[modelProp];
+    this.model = context.model;
   }
 
   componentDidMount() {
     this.setup();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps);
   }
 
   componentWillUnmount() {
@@ -28,13 +35,11 @@ export default class Radio extends Component {
   }
 
   destroy() {
-    // this.select.parentNode.replaceChild(this.select.cloneNode(true), this.select);
-
     this.radio.removeEventListener('click', this.setValue.bind(this));
   }
 
   setValue() {
-    this.model = this.radio.value;
+    DeepSet(this.model, this.modelProp, this.radio.value);
   }
 
   render() {
