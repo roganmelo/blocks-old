@@ -26,6 +26,8 @@ export default class Dropdown extends Component {
 
   componentDidMount() {
     this.setup();
+
+    this.select.valid = false;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,20 +47,22 @@ export default class Dropdown extends Component {
   }
 
   clearError() {
-    PubSub.publish('clear-error', this.state.errorMessage);
+    this.select.valid = true;
 
     this.setState({ errorMessage: '' });
   }
 
   setError(errorMessage) {
-    PubSub.publish('set-error', errorMessage);
+    this.select.valid = false;
 
     this.setState({ errorMessage });
-    
+
     DeepSet(this.model, this.modelProp, '');
   }
 
   validate() {
+    PubSub.publish('data', this.select.value);
+
     if(this.required) {
       this.clearError();
 

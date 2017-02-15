@@ -8,13 +8,14 @@ export default class Input extends Component {
   constructor(props, context) {
     super();
 
-    if(props.type === 'checkbox' || props.type === 'radio')
-      throw new Error('Input cant works with types checkbox or radio.');
+    const { type, label, modelProp, validateOn, validators, ...inputProps } = props;
 
-    const { label, modelProp, validateOn, validators, ...inputProps } = props;
+    if(type === 'checkbox' || type === 'radio')
+      throw new Error('Input doesnt works with types checkbox or radio.');
 
     this.state = { errorMessage: '' };
 
+    this.type = type;
     this.label = label;
     this.modelProp = modelProp;
     this.validateOn = validateOn;
@@ -38,16 +39,18 @@ export default class Input extends Component {
   setup() {
     if(this.validateOn === 'blur') {
       this.input.addEventListener('blur', this.validate.bind(this));
-      this.input.addEventListener('input', this.clearError());
+      this.input.addEventListener('input', this.setState({ errorMessage: '' }));
     } else {
       this.input.addEventListener('input', this.validate.bind(this));
     }
+
+    this.input.valid = false;
   }
 
   destroy() {
     if(this.validateOn === 'blur') {
       this.input.removeEventListener('blur', this.validate.bind(this));
-      this.input.removeEventListener('input', this.clearError());
+      this.input.removeEventListener('input', this.setState({ errorMessage: '' }));
     } else {
       this.input.removeEventListener('input', this.validate.bind(this));
     }
@@ -69,31 +72,35 @@ export default class Input extends Component {
         case 'regexp':
           return (!v.validator.test(inputValue));
         default:
-          throw new Error('The validators can only be a function, string or regex.');
+          throw new Error('The validators only be a function, string or regex.');
       }
     });
   }
 
   clearError() {
-    PubSub.publish('clear-error', this.state.errorMessage);
-    
+    this.input.valid = true;
+
     this.setState({ errorMessage: '' });
   }
 
   setError(errorMessage) {
-    PubSub.publish('set-error', errorMessage);
+    this.input.valid = false;
 
     this.setState({ errorMessage });
 
     DeepSet(this.model, this.modelProp, '');
   }
 
-  validate(event) {
+  validate() {
+    PubSub.publish('data', this.input.value);
+
     if(this.validators) {
-      this.error = this.findError(this.input.value);
+      let error = this.findError(this.input.value);
+
       this.clearError();
-      this.error
-        ? this.setError(this.error.errorMessage)
+
+      error
+        ? this.setError(error.errorMessage)
         : DeepSet(this.model, this.modelProp, this.input.value);
     } else {
       DeepSet(this.model, this.modelProp, this.input.value);
@@ -115,6 +122,7 @@ export default class Input extends Component {
       <div style={{position: 'relative'}}>
         <label htmlFor={this.props.id}>{this.label}</label>
         <input
+          type={this.type}
           style={{borderColor: this.state.errorMessage ? 'red' : ''}}
           ref={input => this.input = input}
           {...this.inputProps}

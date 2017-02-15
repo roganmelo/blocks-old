@@ -9,7 +9,7 @@ export default class Checkbox extends Component {
     const { type, label, modelProp, ...checkboxProps } = props;
 
     if(type && type !== 'checkbox')
-      throw new Error('Checkbox can works only with type checkbox.');
+      throw new Error('Checkbox works only with type checkbox.');
 
     this.label = label;
     this.modelProp = modelProp;

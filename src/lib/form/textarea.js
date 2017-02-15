@@ -39,6 +39,8 @@ export default class TextArea extends Component {
     } else {
       this.textarea.addEventListener('input', this.validate.bind(this));
     }
+
+    this.textarea.valid = false;
   }
 
   destroy() {
@@ -66,19 +68,19 @@ export default class TextArea extends Component {
         case 'regexp':
           return (!v.validator.test(inputValue));
         default:
-          throw new Error('The validators can only be a function, string or regex.');
+          throw new Error('The validators only be a function, string or regex.');
       }
     });
   }
 
   clearError() {
-    PubSub.publish('clear-error', this.state.errorMessage);
+    this.textarea.valid = true;
 
     this.setState({ errorMessage: '' });
   }
 
   setError(errorMessage) {
-    PubSub.publish('set-error', errorMessage);
+    this.textarea.valid = false;
 
     this.setState({ errorMessage });
 
@@ -86,6 +88,8 @@ export default class TextArea extends Component {
   }
 
   validate(event) {
+    PubSub.publish('data', this.textarea.value);
+
     if(this.validators) {
       let error = this.findError(this.textarea.value);
 

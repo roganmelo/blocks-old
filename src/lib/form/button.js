@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import PubSub from 'pubsub-js';
 
 export default class Button extends Component {
@@ -9,12 +8,9 @@ export default class Button extends Component {
     const { type } = props;
 
     if(type && type !== 'button')
-      throw new Error('Button can works only with type button.');
+      throw new Error('Button works only with type button.');
 
-    this.state = {
-      invalid: true,
-      errors: []
-    };
+    this.state = { invalid: true };
 
     this.init();
   }
@@ -24,21 +20,8 @@ export default class Button extends Component {
   }
 
   init() {
-    PubSub.subscribe('clear-error', (topic, error) => {
-      let errors = [...this.state.errors];
-
-      if(errors.indexOf(error) > -1)
-        errors.splice(errors.indexOf(error), 1);
-
-      this.setState({
-        invalid: false,
-        errors
-      });
-    });
-
-    PubSub.subscribe('set-error', (topic, error) => {
-      this.setState({ errors: [...this.state.errors, error] });
-    });
+    PubSub.subscribe('disable-button', () => this.setState({ invalid: true }));
+    PubSub.subscribe('enable-button', () => this.setState({ invalid: false }));
   }
 
   render() {
@@ -46,7 +29,7 @@ export default class Button extends Component {
       <div>
         <button
           type='button'
-          disabled={this.state.invalid || this.state.errors.length}
+          disabled={this.state.invalid}
         >
           {this.props.children}
         </button>

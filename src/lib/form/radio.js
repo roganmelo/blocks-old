@@ -8,7 +8,7 @@ export default class Radio extends Component {
 
     const { type, name, label, modelProp, ...radioProps } = props;
 
-    if(type && type !== 'radio') throw new Error('Radio can works only with type radio.');
+    if(type && type !== 'radio') throw new Error('Radio works only with type radio.');
     if(!name) throw new Error('The property name is required.');
 
     this.label = label;
