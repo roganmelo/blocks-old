@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Validator from 'validator';
+import PubSub from 'pubsub-js';
 
 import DeepSet from '../utils/deep-set';
 
@@ -38,6 +39,8 @@ export default class TextArea extends Component {
     } else {
       this.textarea.addEventListener('input', this.validate.bind(this));
     }
+
+    this.textarea.valid = false;
   }
 
   destroy() {
@@ -65,21 +68,28 @@ export default class TextArea extends Component {
         case 'regexp':
           return (!v.validator.test(inputValue));
         default:
-          throw new Error('The validators can only be a function, string or regex.');
+          throw new Error('The validators only be a function, string or regex.');
       }
     });
   }
 
   clearError() {
+    this.textarea.valid = true;
+
     this.setState({ errorMessage: '' });
   }
 
   setError(errorMessage) {
+    this.textarea.valid = false;
+
     this.setState({ errorMessage });
+
     DeepSet(this.model, this.modelProp, '');
   }
 
   validate(event) {
+    PubSub.publish('data', this.textarea.value);
+
     if(this.validators) {
       let error = this.findError(this.textarea.value);
 

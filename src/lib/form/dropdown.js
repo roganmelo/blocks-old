@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PubSub from 'pubsub-js';
 
 import DeepSet from '../utils/deep-set';
 
@@ -25,6 +26,8 @@ export default class Dropdown extends Component {
 
   componentDidMount() {
     this.setup();
+
+    this.select.valid = false;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -44,15 +47,22 @@ export default class Dropdown extends Component {
   }
 
   clearError() {
+    this.select.valid = true;
+
     this.setState({ errorMessage: '' });
   }
 
   setError(errorMessage) {
+    this.select.valid = false;
+
     this.setState({ errorMessage });
+
     DeepSet(this.model, this.modelProp, '');
   }
 
   validate() {
+    PubSub.publish('data', this.select.value);
+
     if(this.required) {
       this.clearError();
 
