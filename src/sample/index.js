@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { Form, Input, Dropdown, Checkbox, Radio, TextArea } from '../lib';
+import { Form, Input, Dropdown, Checkbox, Radio, TextArea, Button } from '../lib';
 
 ReactDOM.render((
   <div>
@@ -9,7 +9,9 @@ ReactDOM.render((
     <Form model={{
       field1: '',
       field2: {},
-      field3: []
+      field3: [],
+      field4: '',
+      field5: ''
     }}>
       <Input
         type='text'
@@ -18,14 +20,14 @@ ReactDOM.render((
         modelProp='field1'
         validateOn='change'
         validators={[
-          { validator: v => v !== '', errorMessage: 'Field is required.' },
-          { validator: /W3Schools/g, errorMessage: 'Invalid format.' }
+          { validator: v => v !== '', errorMessage: 'Field 1 is required.' },
+          { validator: /W3Schools/g, errorMessage: 'Field 1 invalid format.' }
         ]}
       />
       <Dropdown
         label='Field 2'
         modelProp='field2'
-        required={{errorMessage: 'Field is required'}}
+        required={{errorMessage: 'Field 2 is required'}}
         validateOn='change'
         defaultOption={{
           key: '',
@@ -62,7 +64,7 @@ ReactDOM.render((
       />
       <Radio
         label='Field 5'
-        modelProp='field5'
+        modelProp='field4'
         name='field4'
         value='123123'
       />
@@ -72,11 +74,11 @@ ReactDOM.render((
         modelProp='field5'
         validateOn='change'
         validators={[
-          { validator: v => v !== '', errorMessage: 'Field is required.' },
-          { validator: /W3Schools/g, errorMessage: 'Invalid format.' }
+          { validator: v => v !== '', errorMessage: 'Field 6 is required.' },
+          { validator: /W3Schools/g, errorMessage: 'Field 6 invalid format.' }
         ]}
       />
-      <button type='button'>Save</button>
+    <Button>Save</Button>
     </Form>
   </div>
 ), document.getElementById('root'));

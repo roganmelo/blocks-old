@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Validator from 'validator';
+import PubSub from 'pubsub-js';
 
 import DeepSet from '../utils/deep-set';
 
@@ -71,11 +72,16 @@ export default class TextArea extends Component {
   }
 
   clearError() {
+    PubSub.publish('clear-error', this.state.errorMessage);
+
     this.setState({ errorMessage: '' });
   }
 
   setError(errorMessage) {
+    PubSub.publish('set-error', errorMessage);
+
     this.setState({ errorMessage });
+
     DeepSet(this.model, this.modelProp, '');
   }
 

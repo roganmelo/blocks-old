@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Validator from 'validator';
+import PubSub from 'pubsub-js';
 
 import DeepSet from '../utils/deep-set';
 
@@ -8,7 +9,7 @@ export default class Input extends Component {
     super();
 
     if(props.type === 'checkbox' || props.type === 'radio')
-      throw new Error('This component doesnt works with checkbox or radio.');
+      throw new Error('Input cant works with types checkbox or radio.');
 
     const { label, modelProp, validateOn, validators, ...inputProps } = props;
 
@@ -74,22 +75,25 @@ export default class Input extends Component {
   }
 
   clearError() {
+    PubSub.publish('clear-error', this.state.errorMessage);
+    
     this.setState({ errorMessage: '' });
   }
 
   setError(errorMessage) {
+    PubSub.publish('set-error', errorMessage);
+
     this.setState({ errorMessage });
+
     DeepSet(this.model, this.modelProp, '');
   }
 
   validate(event) {
     if(this.validators) {
-      let error = this.findError(this.input.value);
-
+      this.error = this.findError(this.input.value);
       this.clearError();
-
-      error
-        ? this.setError(error.errorMessage)
+      this.error
+        ? this.setError(this.error.errorMessage)
         : DeepSet(this.model, this.modelProp, this.input.value);
     } else {
       DeepSet(this.model, this.modelProp, this.input.value);

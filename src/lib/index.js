@@ -11,3 +11,4 @@ export { default as Dropdown } from './form/dropdown';
 export { default as Checkbox } from './form/checkbox';
 export { default as Radio } from './form/radio';
 export { default as TextArea } from './form/textarea';
+export { default as Button } from './form/button';
