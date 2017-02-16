@@ -20,6 +20,11 @@ ReactDOM.render((
           <Cell>Self</Cell>
           <Cell>5</Cell>
         </Row>
+        <Row>
+          <Cell>Severino</Cell>
+          <Cell>Self</Cell>
+          <Cell>5</Cell>
+        </Row>
       </Body>
 
       <Footer>
