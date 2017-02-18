@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { Form, Input, Dropdown, Checkbox, Radio, TextArea, Button } from '../lib';
+import { Form, Input, Dropdown, Checkbox, Radio, TextArea, Button } from '../lib/form';
+import { Datagrid, Head, Column, Body, Row, Cell, Footer } from '../lib/datagrid';
+import { Sidebar } from '../lib/sidebar';
 
 ReactDOM.render((
   <div>
@@ -28,7 +30,6 @@ ReactDOM.render((
         label='Dropdown'
         modelProp='dropdown'
         required={{errorMessage: 'Dropdown is required'}}
-        validateOn='change'
         defaultOption={{
           key: '',
           label: 'Choose one'
@@ -43,8 +44,8 @@ ReactDOM.render((
             label: 'option 2'
           }
         ]}
-        keyProp='key'
-        labelProp='label'
+        optionKeyProp='key'
+        optionLabelProp='label'
       />
 
       <Checkbox
@@ -83,5 +84,30 @@ ReactDOM.render((
         Save
       </Button>
     </Form>
+    <Sidebar></Sidebar>
+    <Datagrid>
+      <Head>
+        <Column>Company</Column>
+        <Column>Admin</Column>
+        <Column>Projects</Column>
+      </Head>
+
+      <Body>
+        <Row>
+          <Cell>Hook</Cell>
+          <Cell>Self</Cell>
+          <Cell>5</Cell>
+        </Row>
+        <Row>
+          <Cell>Severino</Cell>
+          <Cell>Self</Cell>
+          <Cell>5</Cell>
+        </Row>
+      </Body>
+
+      <Footer>
+        Total: $180000
+      </Footer>
+    </Datagrid>
   </div>
 ), document.getElementById('root'));

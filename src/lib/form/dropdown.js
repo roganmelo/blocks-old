@@ -7,43 +7,31 @@ export default class Dropdown extends Component {
   constructor(props, context) {
     super();
 
-    const { modelProp, required, validateOn, defaultOption, options, keyProp, labelProp, ...selectProps } = props;
+    const { modelProp, value, required, onChange, defaultOption, options, optionKeyProp, optionLabelProp, ...selectProps } = props;
 
     this.state = {
       options,
+      value,
       errorMessage: ''
     };
 
+    this.value = value;
     this.modelProp = modelProp;
     this.required = required;
-    this.validateOn = validateOn;
+    this.onChange = onChange;
     this.defaultOption = defaultOption;
-    this.keyProp = keyProp;
-    this.labelProp = labelProp;
+    this.optionKeyProp = optionKeyProp;
+    this.optionLabelProp = optionLabelProp;
     this.selectProps = selectProps;
     this.model = context.model;
   }
 
   componentDidMount() {
-    this.setup();
-
-    this.select.valid = false;
+    this.select.valid = this.required ? false : true;
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState(nextProps);
-  }
-
-  componentWillUnmount() {
-    this.destroy();
-  }
-
-  setup() {
-    this.select.addEventListener('change', this.validate.bind(this));
-  }
-
-  destroy() {
-    this.select.removeEventListener('change', this.validate.bind(this));
   }
 
   clearError() {
@@ -70,8 +58,18 @@ export default class Dropdown extends Component {
         ? this.setError(this.required.errorMessage)
         : DeepSet(this.model, this.modelProp, this.select.value);
     } else {
+      this.select.valid = true;
+
       DeepSet(this.model, this.modelProp, this.select.value);
     }
+  }
+
+  handleChange(event) {
+    this.validate();
+
+    this.setState({ value: event.target.value });
+
+    if(this.onChange) this.onChange();
   }
 
   render() {
@@ -91,18 +89,19 @@ export default class Dropdown extends Component {
         <select
           style={{borderColor: this.state.errorMessage ? 'red' : ''}}
           ref={select => this.select = select}
+          onChange={this.handleChange.bind(this)}
           {...this.selectProps}
         >
           {
             this.defaultOption && <option value={this.defaultOption.key}>{this.defaultOption.label}</option>
           }
           {
-            this.state.options.map(o =>
+            this.state.options.map(option =>
               <option
-                key={o[this.keyProp]}
-                value={o[this.keyProp]}
+                key={option[this.optionKeyProp]}
+                value={option[this.optionKeyProp]}
               >
-                {o[this.labelProp]}
+                {option[this.optionLabelProp]}
               </option>
             )
           }

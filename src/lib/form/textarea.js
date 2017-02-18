@@ -8,20 +8,31 @@ export default class TextArea extends Component {
   constructor(props, context) {
     super();
 
-    const { label, modelProp, validateOn, validators, ...inputProps } = props;
+    const { label, value, modelProp, validateOn, validators, onBlur, onChange, ...inputProps } = props;
 
-    this.state = { errorMessage: '' };
+    this.state = {
+      errorMessage: '',
+      value
+    };
 
     this.label = label;
     this.modelProp = modelProp;
     this.validateOn = validateOn;
     this.validators = validators;
+    this.onBlur = onBlur;
+    this.onChange = onChange;
     this.inputProps = inputProps;
     this.model = context.model;
   }
 
   componentDidMount() {
-    this.setup();
+    if(this.validators) {
+      if(this.state.value) {
+        this.validate();
+      }
+    } else {
+      this.textarea.valid = true;
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,26 +41,6 @@ export default class TextArea extends Component {
 
   componentWillUnmount() {
     this.destroy();
-  }
-
-  setup() {
-    if(this.validateOn === 'blur') {
-      this.textarea.addEventListener('blur', this.validate.bind(this));
-      this.textarea.addEventListener('input', this.clearError());
-    } else {
-      this.textarea.addEventListener('input', this.validate.bind(this));
-    }
-
-    this.textarea.valid = false;
-  }
-
-  destroy() {
-    if(this.validateOn === 'blur') {
-      this.textarea.removeEventListener('blur', this.validate.bind(this));
-      this.textarea.removeEventListener('input', this.clearError());
-    } else {
-      this.textarea.removeEventListener('input', this.validate.bind(this));
-    }
   }
 
   typeOf(validator) {
@@ -87,7 +78,7 @@ export default class TextArea extends Component {
     DeepSet(this.model, this.modelProp, '');
   }
 
-  validate(event) {
+  validate() {
     PubSub.publish('data', this.textarea.value);
 
     if(this.validators) {
@@ -99,8 +90,30 @@ export default class TextArea extends Component {
         ? this.setError(error.errorMessage)
         : DeepSet(this.model, this.modelProp, this.textarea.value);
     } else {
+      this.textarea.valid = true;
+
       DeepSet(this.model, this.modelProp, this.textarea.value);
     }
+  }
+
+  handleBlur(event) {
+    if(this.validateOn === 'blur') {
+      this.validate();
+      this.setState({ errorMessage: '' });
+    }
+
+    this.setState({ value: event.target.value });
+
+    if(this.onBlur)
+      this.onBlur();
+  }
+
+  handleChange(event) {
+    if(this.validateOn === 'change') this.validate();
+
+    this.setState({ value: event.target.value });
+
+    if(this.onChange) this.onChange();
   }
 
   render() {
@@ -118,8 +131,11 @@ export default class TextArea extends Component {
       <div style={{position: 'relative'}}>
         <label htmlFor={this.props.id}>{this.label}</label>
         <textarea
+          value={this.state.value || ''}
           style={{borderColor: this.state.errorMessage ? 'red' : ''}}
           ref={textarea => this.textarea = textarea}
+          onBlur={this.handleBlur.bind(this)}
+          onChange={this.handleChange.bind(this)}
           {...this.inputProps}
         ></textarea>
         {
