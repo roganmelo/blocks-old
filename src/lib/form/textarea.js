@@ -2,145 +2,108 @@ import React, { Component } from 'react';
 import Validator from 'validator';
 import PubSub from 'pubsub-js';
 
-import DeepSet from '../utils/deep-set';
+import './styles.scss';
+import SetByDot from '../utils/set-by-dot';
 
 export default class TextArea extends Component {
   constructor(props, context) {
     super();
 
-    const { label, value, modelProp, validateOn, validators, onBlur, onChange, ...inputProps } = props;
+    const { type, value, label, modelProp, validateOn, validators, ...textareaProps } = props;
 
     this.state = {
       errorMessage: '',
       value
     };
 
+    this.type = type;
     this.label = label;
     this.modelProp = modelProp;
     this.validateOn = validateOn;
     this.validators = validators;
-    this.onBlur = onBlur;
-    this.onChange = onChange;
-    this.inputProps = inputProps;
+    this.textareaProps = textareaProps;
     this.model = context.model;
   }
 
   componentDidMount() {
-    if(this.validators) {
-      if(this.state.value) {
-        this.validate();
-      }
-    } else {
-      this.textarea.valid = true;
-    }
+    this.setup();
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(nextProps);
+    this.update(nextProps);
   }
 
-  componentWillUnmount() {
-    this.destroy();
+  setup() {
+    this.textarea.valid = this.validators ? false : true;
+
+    if(this.validateOn === 'blur')
+      this.textarea.addEventListener('blur', this.handle.bind(this));
+    else if(this.validateOn === 'change')
+      this.textarea.addEventListener('input', this.handle.bind(this));
+    else
+      this.textarea.addEventListener('input', this.handle.bind(this));
   }
 
-  typeOf(validator) {
-    if(typeof(validator) === 'string') return 'string';
-    else if(validator instanceof Function) return 'function';
-    else if(validator instanceof RegExp) return 'regexp';
+  update(props) {
+    this.setState(props);
+
+    if(props && props.value)
+      SetByDot(this.model, this.modelProp, props.value);
   }
 
-  findError(inputValue) {
-    return this.validators.find(v => {
-      switch (this.typeOf(v.validator)) {
-        case 'string':
-          return (Validator[v.validator] && !Validator[v.validator](inputValue));
-        case 'function':
-          return (!v.validator(inputValue));
-        case 'regexp':
-          return (!v.validator.test(inputValue));
-        default:
-          throw new Error('The validators only be a function, string or regex.');
-      }
+  findError(textareaValue) {
+    return this.validators.find(validator => {
+      const rule = validator.rule;
+
+      if(typeof(rule) === 'string')
+        return (Validator[rule] && !Validator[rule](textareaValue));
+      else if(rule instanceof Function)
+        return (!rule(textareaValue));
+      else if(rule instanceof RegExp)
+        return (!rule.test(textareaValue));
+      else
+        throw new Error('The validators can be only functions, strings or regexs.');
     });
   }
 
   clearError() {
     this.textarea.valid = true;
-
     this.setState({ errorMessage: '' });
   }
 
   setError(errorMessage) {
     this.textarea.valid = false;
-
     this.setState({ errorMessage });
-
-    DeepSet(this.model, this.modelProp, '');
+    SetByDot(this.model, this.modelProp, '');
   }
 
-  validate() {
-    PubSub.publish('data', this.textarea.value);
+  handle() {
+    this.setState({ value: this.textarea.value });
 
     if(this.validators) {
-      let error = this.findError(this.textarea.value);
+      const error = this.findError(this.textarea.value);
 
       this.clearError();
 
       error
         ? this.setError(error.errorMessage)
-        : DeepSet(this.model, this.modelProp, this.textarea.value);
-    } else {
-      this.textarea.valid = true;
-
-      DeepSet(this.model, this.modelProp, this.textarea.value);
-    }
-  }
-
-  handleBlur(event) {
-    if(this.validateOn === 'blur') {
-      this.validate();
-      this.setState({ errorMessage: '' });
+        : SetByDot(this.model, this.modelProp, this.textarea.value);
     }
 
-    this.setState({ value: event.target.value });
-
-    if(this.onBlur)
-      this.onBlur();
-  }
-
-  handleChange(event) {
-    if(this.validateOn === 'change') this.validate();
-
-    this.setState({ value: event.target.value });
-
-    if(this.onChange) this.onChange();
+    PubSub.publish('data', this.textarea.value);
   }
 
   render() {
-    const spanStyle = {
-      position: 'absolute',
-      right: '0',
-      bottom: '-1px',
-      fontSize: '11px',
-      color: '#f00',
-      textTransform: 'uppercase',
-      fontWeight: '400'
-    };
-
     return (
-      <div style={{position: 'relative'}}>
-        <label htmlFor={this.props.id}>{this.label}</label>
+      <div className={this.state.errorMessage ? 'field error' : 'field'}>
+        <label htmlFor={this.label}>{this.label}</label>
         <textarea
+          id={this.label}
           value={this.state.value || ''}
-          style={{borderColor: this.state.errorMessage ? 'red' : ''}}
           ref={textarea => this.textarea = textarea}
-          onBlur={this.handleBlur.bind(this)}
-          onChange={this.handleChange.bind(this)}
-          {...this.inputProps}
+          {...this.textareaProps}
         ></textarea>
-        {
-          this.state.errorMessage && <span style={spanStyle}>{this.state.errorMessage}</span>
-        }
+        <span>{this.state.errorMessage}</span>
       </div>
     );
   }

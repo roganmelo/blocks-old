@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PubSub from 'pubsub-js';
 
-import DeepSet from '../utils/deep-set';
+import './styles.scss';
+import SetByDot from '../utils/set-by-dot';
 
 export default class Dropdown extends Component {
   constructor(props, context) {
     super();
 
-    const { modelProp, value, required, onChange, defaultOption, options, optionKeyProp, optionLabelProp, ...selectProps } = props;
+    const { options, value, label, modelProp, validateOn, required, defaultOption, optionKeyProp, optionLabelProp, ...selectProps } = props;
 
     this.state = {
       options,
@@ -16,9 +17,10 @@ export default class Dropdown extends Component {
     };
 
     this.value = value;
+    this.label = label;
     this.modelProp = modelProp;
+    this.validateOn = validateOn;
     this.required = required;
-    this.onChange = onChange;
     this.defaultOption = defaultOption;
     this.optionKeyProp = optionKeyProp;
     this.optionLabelProp = optionLabelProp;
@@ -27,69 +29,62 @@ export default class Dropdown extends Component {
   }
 
   componentDidMount() {
-    this.select.valid = this.required ? false : true;
+    this.setup();
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(nextProps);
+    this.update(nextProps);
+  }
+
+  setup() {
+    this.select.valid = this.required ? false : true;
+
+    if(this.validateOn === 'blur')
+      this.select.addEventListener('blur', this.handle.bind(this));
+    else
+      this.select.addEventListener('change', this.handle.bind(this));
+  }
+
+  update(props) {
+    this.setState(props);
+
+    if(props && props.value)
+      SetByDot(this.model, this.modelProp, props.value);
   }
 
   clearError() {
     this.select.valid = true;
-
     this.setState({ errorMessage: '' });
   }
 
   setError(errorMessage) {
     this.select.valid = false;
-
     this.setState({ errorMessage });
-
-    DeepSet(this.model, this.modelProp, '');
+    SetByDot(this.model, this.modelProp, '');
   }
 
-  validate() {
-    PubSub.publish('data', this.select.value);
+  handle() {
+    this.setState({ value: this.select.value });
 
     if(this.required) {
       this.clearError();
 
       this.select.value === this.defaultOption.key
         ? this.setError(this.required.errorMessage)
-        : DeepSet(this.model, this.modelProp, this.select.value);
-    } else {
-      this.select.valid = true;
-
-      DeepSet(this.model, this.modelProp, this.select.value);
+        : SetByDot(this.model, this.modelProp, this.select.value);
     }
-  }
 
-  handleChange(event) {
-    this.validate();
-
-    this.setState({ value: event.target.value });
-
-    if(this.onChange) this.onChange();
+    PubSub.publish('data', this.select.value);
   }
 
   render() {
-    const spanStyle = {
-      position: 'absolute',
-      right: '0',
-      bottom: '-1px',
-      fontSize: '11px',
-      color: '#f00',
-      textTransform: 'uppercase',
-      fontWeight: '400'
-    };
-
     return (
-      <div style={{position: 'relative'}}>
-        <label htmlFor={this.props.id}>{this.props.label}</label>
+      <div className={this.state.errorMessage ? 'field error' : 'field'}>
+        <label htmlFor={this.label}>{this.label}</label>
         <select
-          style={{borderColor: this.state.errorMessage ? 'red' : ''}}
+          id={this.label}
+          value={this.state.value || ''}
           ref={select => this.select = select}
-          onChange={this.handleChange.bind(this)}
           {...this.selectProps}
         >
           {
@@ -106,9 +101,7 @@ export default class Dropdown extends Component {
             )
           }
         </select>
-        {
-          this.state.errorMessage && <span style={spanStyle}>{this.state.errorMessage}</span>
-        }
+        <span>{this.state.errorMessage}</span>
       </div>
     );
   }

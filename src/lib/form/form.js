@@ -18,12 +18,9 @@ export default class Form extends Component {
 
   componentDidMount() {
     this.fields = [...this.form].filter(field => ((
-      field.nodeName === 'INPUT'
-      && field.type !== 'checkbox'
-      && field.type !== 'radio')
-      || field.nodeName === 'SELECT'
-      || field.nodeName === 'TEXTAREA'
-    ));
+      field.nodeName === 'INPUT' && field.type !== 'checkbox')
+      || field.nodeName === 'SELECT' || field.nodeName === 'TEXTAREA')
+    );
   }
 
   hasInvalidFields() {
