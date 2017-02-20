@@ -76,7 +76,7 @@ export default class RadioGroup extends Component {
 
   render() {
     return (
-      <div>
+      <div className='field'>
         <label>{this.title}</label>
         <div className='container'>
           {
