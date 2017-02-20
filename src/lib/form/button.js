@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PubSub from 'pubsub-js';
+import Emitter from '../utils/emitter';
 
 export default class Button extends Component {
   constructor(props) {
@@ -23,8 +23,8 @@ export default class Button extends Component {
   }
 
   init() {
-    PubSub.subscribe('disable-button', () => this.setState({ invalid: true }));
-    PubSub.subscribe('enable-button', () => this.setState({ invalid: false }));
+    Emitter.on('disable-button', () => this.setState({ invalid: true }));
+    Emitter.on('enable-button', () => this.setState({ invalid: false }));
   }
 
   render() {
@@ -32,6 +32,7 @@ export default class Button extends Component {
       <div>
         <button
           type='button'
+          disabled={this.disableOnInvalid && this.state.invalid}
           {...this.buttonProps}
         >
           {this.props.children}

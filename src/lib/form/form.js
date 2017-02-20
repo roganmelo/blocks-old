@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PubSub from 'pubsub-js';
+import Emitter from '../utils/emitter';
 
 export default class Form extends Component {
   constructor(props) {
@@ -33,10 +33,10 @@ export default class Form extends Component {
   }
 
   init() {
-    PubSub.subscribe('data', () => {
+    Emitter.on('data', () => {
       (this.hasInvalidFields() > 0)
-        ? PubSub.publish('disable-button')
-        : PubSub.publish('enable-button');
+        ? Emitter.emit('disable-button')
+        : Emitter.emit('enable-button');
     });
   }
 

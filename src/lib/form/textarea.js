@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Validator from 'validator';
-import PubSub from 'pubsub-js';
+import Emitter from '../utils/emitter';
 
 import SetByDot from '../utils/set-by-dot';
 
@@ -96,7 +96,7 @@ export default class TextArea extends Component {
       SetByDot(this.model, this.modelProp, this.textarea.value);
     }
 
-    PubSub.publish('data', this.textarea.value);
+    Emitter.emit('data', this.textarea.value);
   }
 
   render() {

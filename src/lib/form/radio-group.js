@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PubSub from 'pubsub-js';
+import Emitter from '../utils/emitter';
 
 import SetByDot from '../utils/set-by-dot';
 
@@ -71,7 +71,7 @@ export default class RadioGroup extends Component {
 
     SetByDot(this.model, this.modelProp, event.target.value);
 
-    PubSub.publish('data', event.target.value);
+    Emitter.emit('data', event.target.value);
   }
 
   render() {

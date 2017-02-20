@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PubSub from 'pubsub-js';
+import Emitter from '../utils/emitter';
 
 import SetByDot from '../utils/set-by-dot';
 
@@ -80,7 +80,7 @@ export default class Dropdown extends Component {
       SetByDot(this.model, this.modelProp, this.select.value);
     }
 
-    PubSub.publish('data', this.select.value);
+    Emitter.emit('data', this.select.value);
   }
 
   render() {

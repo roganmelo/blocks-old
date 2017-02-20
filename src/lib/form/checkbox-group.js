@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PubSub from 'pubsub-js';
+import Emitter from '../utils/emitter';
 
 import SetByDotArray from '../utils/set-by-dot-array';
 
@@ -99,7 +99,7 @@ export default class CheckboxGroup extends Component {
 
     SetByDotArray(this.model, this.modelProp, event.target.value, event.target.checked);
 
-    PubSub.publish('data', event.target.value);
+    Emitter.emit('data', event.target.value);
   }
 
   render() {

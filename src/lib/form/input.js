@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Validator from 'validator';
-import PubSub from 'pubsub-js';
+import Emitter from '../utils/emitter';
 
 import SetByDot from '../utils/set-by-dot';
 
@@ -97,7 +97,7 @@ export default class Input extends Component {
       SetByDot(this.model, this.modelProp, this.input.value);
     }
 
-    PubSub.publish('data', this.input.value);
+    Emitter.emit('data', this.input.value);
   }
 
   render() {
