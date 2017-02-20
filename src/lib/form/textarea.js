@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Validator from 'validator';
 import PubSub from 'pubsub-js';
 
-import './styles.scss';
 import SetByDot from '../utils/set-by-dot';
 
 export default class TextArea extends Component {
@@ -33,6 +32,11 @@ export default class TextArea extends Component {
     this.update(nextProps);
   }
 
+  setValue(props) {
+    if(props && props.value)
+      SetByDot(this.model, this.modelProp, props.value);
+  }
+
   setup() {
     this.textarea.valid = this.validators ? false : true;
 
@@ -42,13 +46,13 @@ export default class TextArea extends Component {
       this.textarea.addEventListener('input', this.handle.bind(this));
     else
       this.textarea.addEventListener('input', this.handle.bind(this));
+
+    this.setValue(this.props);
   }
 
   update(props) {
     this.setState(props);
-
-    if(props && props.value)
-      SetByDot(this.model, this.modelProp, props.value);
+    this.setValue(props);
   }
 
   findError(textareaValue) {
@@ -88,6 +92,8 @@ export default class TextArea extends Component {
       error
         ? this.setError(error.errorMessage)
         : SetByDot(this.model, this.modelProp, this.textarea.value);
+    } else {
+      SetByDot(this.model, this.modelProp, this.textarea.value);
     }
 
     PubSub.publish('data', this.textarea.value);

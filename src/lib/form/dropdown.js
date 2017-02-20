@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PubSub from 'pubsub-js';
 
-import './styles.scss';
 import SetByDot from '../utils/set-by-dot';
 
 export default class Dropdown extends Component {
@@ -36,6 +35,11 @@ export default class Dropdown extends Component {
     this.update(nextProps);
   }
 
+  setValue(props) {
+    if(props && props.value)
+      SetByDot(this.model, this.modelProp, props.value);
+  }
+
   setup() {
     this.select.valid = this.required ? false : true;
 
@@ -43,13 +47,13 @@ export default class Dropdown extends Component {
       this.select.addEventListener('blur', this.handle.bind(this));
     else
       this.select.addEventListener('change', this.handle.bind(this));
+
+    this.setValue(this.props);
   }
 
   update(props) {
     this.setState(props);
-
-    if(props && props.value)
-      SetByDot(this.model, this.modelProp, props.value);
+    this.setValue(props);
   }
 
   clearError() {
@@ -72,6 +76,8 @@ export default class Dropdown extends Component {
       this.select.value === this.defaultOption.key
         ? this.setError(this.required.errorMessage)
         : SetByDot(this.model, this.modelProp, this.select.value);
+    } else {
+      SetByDot(this.model, this.modelProp, this.select.value);
     }
 
     PubSub.publish('data', this.select.value);

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PubSub from 'pubsub-js';
 
-import './styles.scss';
 import SetByDot from '../utils/set-by-dot';
 
 export default class RadioGroup extends Component {
@@ -10,7 +9,7 @@ export default class RadioGroup extends Component {
 
     const { title, type, options, value, name, modelProp, required, optionKeyProp, optionLabelProp, ...radioProps } = props;
 
-    if(type && type !== 'radio') throw new Error('Radio works only with type radio.');
+    if(type && type !== 'radio') throw new Error('RadioGroup component works only with type radio.');
     if(!name) throw new Error('The property name is required.');
 
     this.state = {
@@ -37,6 +36,11 @@ export default class RadioGroup extends Component {
     this.update(nextProps);
   }
 
+  setValue(props) {
+    if(props && props.value)
+      SetByDot(this.model, this.modelProp, props.value);
+  }
+
   setup() {
     const valid = this.required ? false : true;
 
@@ -44,13 +48,13 @@ export default class RadioGroup extends Component {
       item.valid = valid;
       item.addEventListener('click', this.handle.bind(this));
     });
+
+    this.setValue(this.props);
   }
 
   update(props) {
     this.setState(props);
-
-    if(props && props.value)
-      SetByDot(this.model, this.modelProp, props.value);
+    this.setValue(props);
   }
 
   ref(radio) {

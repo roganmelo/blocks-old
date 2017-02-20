@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Validator from 'validator';
 import PubSub from 'pubsub-js';
 
-import './styles.scss';
 import SetByDot from '../utils/set-by-dot';
 
 export default class Input extends Component {
@@ -10,7 +9,7 @@ export default class Input extends Component {
     super();
 
     if(props.type === 'checkbox' || props.type === 'radio')
-      throw new Error('Input doesnt works with types checkbox or radio.');
+      throw new Error('Input component doesnt works with types checkbox or radio.');
 
     const { type, value, label, modelProp, validateOn, validators, ...inputProps } = props;
 
@@ -36,6 +35,11 @@ export default class Input extends Component {
     this.update(nextProps);
   }
 
+  setValue(props) {
+    if(props && props.value)
+      SetByDot(this.model, this.modelProp, props.value);
+  }
+
   setup() {
     this.input.valid = this.validators ? false : true;
 
@@ -43,13 +47,13 @@ export default class Input extends Component {
       this.input.addEventListener('blur', this.handle.bind(this));
     else
       this.input.addEventListener('input', this.handle.bind(this));
+
+    this.setValue(this.props);
   }
 
   update(props) {
     this.setState(props);
-
-    if(props && props.value)
-      SetByDot(this.model, this.modelProp, props.value);
+    this.setValue(props);
   }
 
   findError(inputValue) {
@@ -89,6 +93,8 @@ export default class Input extends Component {
       error
         ? this.setError(error.errorMessage)
         : SetByDot(this.model, this.modelProp, this.input.value);
+    } else {
+      SetByDot(this.model, this.modelProp, this.input.value);
     }
 
     PubSub.publish('data', this.input.value);

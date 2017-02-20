@@ -1,4 +1,4 @@
-export default (model, modelProp, value, isCheckbox, checked) => {
+export default (model, modelProp, value, checked) => {
   let parts = modelProp.split('.');
   let lastIndex = parts.length - 1;
 
@@ -12,11 +12,7 @@ export default (model, modelProp, value, isCheckbox, checked) => {
     }
 
     if(!Array.isArray(obj[part])) {
-      if(!isCheckbox) {
-        obj[part] = value;
-      } else {
-        obj[part] = checked;
-      }
+      obj[part] = checked;
     } else {
       if(checked) {
         obj[part].push(value);

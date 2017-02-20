@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 
-import { Form, Input, Dropdown, Checkbox, RadioGroup, TextArea, Button } from '../lib/form';
+import { Form, Input, Dropdown, CheckboxGroup, RadioGroup, TextArea, Button } from '../lib/form';
 
 export default class FormSample extends Component {
   constructor() {
     super();
 
-    this.foo = {};
+    this.foo = {
+      checkbox: []
+    };
   }
 
   click() {
@@ -21,6 +23,7 @@ export default class FormSample extends Component {
           <Input
             type='text'
             label='Input'
+            value='foo'
             placeholder='Input'
             modelProp='input'
             validateOn='change'
@@ -32,6 +35,7 @@ export default class FormSample extends Component {
           <Dropdown
             label='Dropdown'
             modelProp='dropdown'
+            value='123123'
             validateOn='change'
             required={{errorMessage: 'Dropdown is required.'}}
             defaultOption={{
@@ -51,15 +55,26 @@ export default class FormSample extends Component {
             optionKeyProp='key'
             optionLabelProp='label'
           />
-          <Checkbox
-            label='Foo'
-            modelProp='field3'
-            value='123123'
-          />
-          <Checkbox
-            label='Bar'
-            modelProp='field3'
-            value='321321'
+          <CheckboxGroup
+            title='Checkboxes'
+            values={['123123']}
+            modelProp='checkbox'
+            minRequired={{
+              min: 2,
+              errorMessage: 'At least two items must be checked.'
+            }}
+            options={[
+              [
+                { key: '123123', label: 'item 1' },
+                { key: '321321', label: 'item 2' },
+              ],
+              [
+                { key: '987987', label: 'item 3' },
+                { key: '789789', label: 'item 4' }
+              ]
+            ]}
+            optionKeyProp='key'
+            optionLabelProp='label'
           />
           <RadioGroup
             title='Radios'
@@ -69,7 +84,7 @@ export default class FormSample extends Component {
             required={true}
             options={[
               [
-                { key: '123213', label: 'item 1' },
+                { key: '123123', label: 'item 1' },
                 { key: '321321', label: 'item 2' },
               ],
               [
@@ -82,6 +97,7 @@ export default class FormSample extends Component {
           />
           <TextArea
             label='TextArea'
+            value='bar'
             placeholder='TextArea'
             modelProp='textarea'
             validateOn='change'

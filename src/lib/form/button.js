@@ -8,7 +8,7 @@ export default class Button extends Component {
     const { type, disableOnInvalid, ...buttonProps } = props;
 
     if(type && type !== 'button')
-      throw new Error('Button works only with type button.');
+      throw new Error('Button component works only with type button.');
 
     this.state = { invalid: true };
 
@@ -32,7 +32,6 @@ export default class Button extends Component {
       <div>
         <button
           type='button'
-          disabled={this.disableOnInvalid && this.state.invalid}
           {...this.buttonProps}
         >
           {this.props.children}
