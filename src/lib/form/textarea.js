@@ -19,7 +19,7 @@ export default class TextArea extends Component {
     this.label = label;
     this.modelProp = modelProp;
     this.validateOn = validateOn;
-    this.validators = validators;
+    this.validators = validators || [];
     this.textareaProps = textareaProps;
     this.model = context.model;
   }

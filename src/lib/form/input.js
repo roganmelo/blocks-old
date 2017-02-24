@@ -24,7 +24,7 @@ export default class Input extends Component {
     this.label = label;
     this.modelProp = modelProp;
     this.validateOn = validateOn;
-    this.validators = validators;
+    this.validators = validators || [];
     this.inputProps = inputProps;
     this.model = context.model;
   }

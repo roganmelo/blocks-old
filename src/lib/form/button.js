@@ -21,7 +21,7 @@ export default class Button extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.update();
+    this.update(nextProps);
   }
 
   init() {
