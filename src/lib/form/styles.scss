@@ -1,14 +1,44 @@
 @import "~milligram-scss/dist/milligram.scss";
 
 form {
+  max-width: 600px;
+  margin: 0 auto;
+
   .field {
     position: relative;
 
-    &.error {
+    &--inline {
+      display: flex;
+
+      label {
+        font-weight: 300;
+        margin-right: 20px;
+
+        input {
+          margin-right: 5px;
+          vertical-align: text-top;
+        }
+      }
+    }
+
+    select {
+      -webkit-appearance: none;
+      color: inherit;
+
+      &:focus {
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 29 14" width="29"><path fill="#d1d1d1" d="M9.37727 3.625l5.08154 6.93523L19.54036 3.625"/></svg>') center right no-repeat
+      }
+    }
+
+    span {
+      display: none;
+    }
+
+    &--error {
       input,
       select,
       textarea {
-        border-color: red;
+        border-color: red !important;
       }
 
       span {
@@ -22,14 +52,9 @@ form {
         font-weight: 400;
       }
     }
+  }
 
-    .container {
-      margin: 8px;
-      padding: 0;
-    }
-
-    span {
-      display: none;
-    }
+  button {
+    margin-top: 10px;
   }
 }

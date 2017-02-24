@@ -8,14 +8,15 @@ export default class TextArea extends Component {
   constructor(props, context) {
     super();
 
-    const { type, value, label, modelProp, validateOn, validators, ...textareaProps } = props;
+    const { disabled, value, label, modelProp, validateOn, validators,
+      ...textareaProps } = props;
 
     this.state = {
-      errorMessage: '',
-      value
+      disabled,
+      value: value || '',
+      errorMessage: ''
     };
 
-    this.type = type;
     this.label = label;
     this.modelProp = modelProp;
     this.validateOn = validateOn;
@@ -32,22 +33,28 @@ export default class TextArea extends Component {
     this.update(nextProps);
   }
 
-  setValue(props) {
-    if(props && props.value)
-      SetByDot(this.model, this.modelProp, props.value);
-  }
-
   setup() {
-    this.textarea.valid = this.validators ? false : true;
+    let valid = true;
 
-    if(this.validateOn === 'blur')
+    if(this.state.value) {
+      valid = true;
+    } else if(this.validators.length > 0) {
+      valid = false;
+    }
+
+    this.textarea.valid = valid;
+
+    if(this.validateOn === 'blur') {
       this.textarea.addEventListener('blur', this.handle.bind(this));
-    else if(this.validateOn === 'change')
+    } else if(this.validateOn === 'change') {
       this.textarea.addEventListener('input', this.handle.bind(this));
-    else
+    } else {
       this.textarea.addEventListener('input', this.handle.bind(this));
+    }
 
     this.setValue(this.props);
+
+    Emitter.emit('new-input', [this.textarea]);
   }
 
   update(props) {
@@ -55,18 +62,25 @@ export default class TextArea extends Component {
     this.setValue(props);
   }
 
+  setValue(props) {
+    if(props && props.value) {
+      SetByDot(this.model, this.modelProp, props.value);
+    }
+  }
+
   findError(textareaValue) {
     return this.validators.find(validator => {
       const rule = validator.rule;
 
-      if(typeof(rule) === 'string')
+      if(typeof(rule) === 'string') {
         return (Validator[rule] && !Validator[rule](textareaValue));
-      else if(rule instanceof Function)
+      } else if(rule instanceof Function) {
         return (!rule(textareaValue));
-      else if(rule instanceof RegExp)
+      } else if(rule instanceof RegExp) {
         return (!rule.test(textareaValue));
-      else
+      } else {
         throw new Error('The validators can be only functions, strings or regexs.');
+      }
     });
   }
 
@@ -101,10 +115,11 @@ export default class TextArea extends Component {
 
   render() {
     return (
-      <div className={this.state.errorMessage ? 'field error' : 'field'}>
+      <div className={this.state.errorMessage ? 'field field--error' : 'field'}>
         <label htmlFor={this.label}>{this.label}</label>
         <textarea
           id={this.label}
+          disabled={this.state.disabled}
           value={this.state.value || ''}
           ref={textarea => this.textarea = textarea}
           {...this.textareaProps}

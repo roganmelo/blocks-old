@@ -8,14 +8,17 @@ export default class Input extends Component {
   constructor(props, context) {
     super();
 
-    if(props.type === 'checkbox' || props.type === 'radio')
-      throw new Error('Input component doesnt works with types checkbox or radio.');
+    const { type, disabled, value, label, modelProp, validateOn, validators,
+      ...inputProps } = props;
 
-    const { type, value, label, modelProp, validateOn, validators, ...inputProps } = props;
+    if(type && (type === 'checkbox' || type === 'radio')) {
+      throw new Error('Input component doesnt works with types checkbox or radio.');
+    }
 
     this.state = {
-      errorMessage: '',
-      value
+      disabled,
+      value: value || '',
+      errorMessage: ''
     };
 
     this.type = type;
@@ -35,20 +38,26 @@ export default class Input extends Component {
     this.update(nextProps);
   }
 
-  setValue(props) {
-    if(props && props.value)
-      SetByDot(this.model, this.modelProp, props.value);
-  }
-
   setup() {
-    this.input.valid = this.validators ? false : true;
+    let valid = true;
 
-    if(this.validateOn === 'blur')
+    if(this.state.value) {
+      valid = true;
+    } else if(this.validators.length > 0) {
+      valid = false;
+    }
+
+    this.input.valid = valid;
+
+    if(this.validateOn === 'blur') {
       this.input.addEventListener('blur', this.handle.bind(this));
-    else
+    } else {
       this.input.addEventListener('input', this.handle.bind(this));
+    }
 
     this.setValue(this.props);
+
+    Emitter.emit('new-input', [this.input]);
   }
 
   update(props) {
@@ -56,18 +65,25 @@ export default class Input extends Component {
     this.setValue(props);
   }
 
+  setValue(props) {
+    if(props && props.value) {
+      SetByDot(this.model, this.modelProp, props.value);
+    }
+  }
+
   findError(inputValue) {
     return this.validators.find(validator => {
       const rule = validator.rule;
 
-      if(typeof(rule) === 'string')
+      if(typeof(rule) === 'string') {
         return (Validator[rule] && !Validator[rule](inputValue));
-      else if(rule instanceof Function)
+      } else if(rule instanceof Function) {
         return (!rule(inputValue));
-      else if(rule instanceof RegExp)
+      } else if(rule instanceof RegExp) {
         return (!rule.test(inputValue));
-      else
+      } else {
         throw new Error('The validators can be only functions, strings or regexs.');
+      }
     });
   }
 
@@ -102,11 +118,12 @@ export default class Input extends Component {
 
   render() {
     return (
-      <div className={this.state.errorMessage ? 'field error' : 'field'}>
+      <div className={this.state.errorMessage ? 'field field--error' : 'field'}>
         <label htmlFor={this.label}>{this.label}</label>
         <input
           id={this.label}
           type={this.type}
+          disabled={this.state.disabled}
           value={this.state.value || ''}
           ref={input => this.input = input}
           {...this.inputProps}

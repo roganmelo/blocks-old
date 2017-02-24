@@ -7,7 +7,7 @@ export default class FormSample extends Component {
     super();
 
     this.foo = {
-      checkbox: []
+      checkboxes: []
     };
   }
 
@@ -18,8 +18,8 @@ export default class FormSample extends Component {
   render() {
     return (
       <div>
-        <h1>Form</h1>
         <Form model={this.foo}>
+          <h1>Form</h1>
           <Input
             type='text'
             label='Input'
@@ -29,13 +29,13 @@ export default class FormSample extends Component {
             validateOn='change'
             validators={[
               { rule: v => v !== '', errorMessage: 'Input is required.' },
-              { rule: /foo/g, errorMessage: 'Input invalid format.' }
+              { rule: /foo/, errorMessage: 'Input invalid format.' }
             ]}
           />
           <Dropdown
             label='Dropdown'
+            value='321321'
             modelProp='dropdown'
-            value='123123'
             validateOn='change'
             required={{errorMessage: 'Dropdown is required.'}}
             defaultOption={{
@@ -57,40 +57,33 @@ export default class FormSample extends Component {
           />
           <CheckboxGroup
             title='Checkboxes'
-            values={['123123']}
-            modelProp='checkbox'
+            values={['123123', '987987']}
+            modelProp='checkboxes'
             minRequired={{
               min: 2,
               errorMessage: 'At least two items must be checked.'
             }}
             options={[
-              [
-                { key: '123123', label: 'item 1' },
-                { key: '321321', label: 'item 2' },
-              ],
-              [
-                { key: '987987', label: 'item 3' },
-                { key: '789789', label: 'item 4' }
-              ]
+              { key: '123123', label: 'item 1', disabled: true },
+              { key: '321321', label: 'item 2' },
+              { key: '987987', label: 'item 3' },
+              { key: '789789', label: 'item 4' }
             ]}
             optionKeyProp='key'
             optionLabelProp='label'
+            optionDisabledProp='disabled'
           />
           <RadioGroup
             title='Radios'
             name='radios'
-            value='123123'
+            value='321321'
             modelProp='radio'
             required={true}
             options={[
-              [
-                { key: '123123', label: 'item 1' },
-                { key: '321321', label: 'item 2' },
-              ],
-              [
-                { key: '987987', label: 'item 3' },
-                { key: '789789', label: 'item 4' }
-              ]
+              { key: '123123', label: 'item 1' },
+              { key: '321321', label: 'item 2' },
+              { key: '987987', label: 'item 3' },
+              { key: '789789', label: 'item 4' }
             ]}
             optionKeyProp='key'
             optionLabelProp='label'

@@ -7,11 +7,13 @@ export default class Dropdown extends Component {
   constructor(props, context) {
     super();
 
-    const { options, value, label, modelProp, validateOn, required, defaultOption, optionKeyProp, optionLabelProp, ...selectProps } = props;
+    const { options, disabled, value, label, modelProp, validateOn, required,
+      defaultOption, optionKeyProp, optionLabelProp, ...selectProps } = props;
 
     this.state = {
       options,
-      value,
+      disabled,
+      value: value || '',
       errorMessage: ''
     };
 
@@ -35,25 +37,37 @@ export default class Dropdown extends Component {
     this.update(nextProps);
   }
 
-  setValue(props) {
-    if(props && props.value)
-      SetByDot(this.model, this.modelProp, props.value);
-  }
-
   setup() {
-    this.select.valid = this.required ? false : true;
+    let valid = true;
 
-    if(this.validateOn === 'blur')
+    if(this.state.value) {
+      valid = true;
+    } else if(this.required) {
+      valid = false;
+    }
+
+    this.select.valid = valid;
+
+    if(this.validateOn === 'blur') {
       this.select.addEventListener('blur', this.handle.bind(this));
-    else
+    } else {
       this.select.addEventListener('change', this.handle.bind(this));
+    }
 
     this.setValue(this.props);
+
+    Emitter.emit('new-input', [this.select]);
   }
 
   update(props) {
     this.setState(props);
     this.setValue(props);
+  }
+
+  setValue(props) {
+    if(props && props.value) {
+      SetByDot(this.model, this.modelProp, props.value);
+    }
   }
 
   clearError() {
@@ -85,10 +99,11 @@ export default class Dropdown extends Component {
 
   render() {
     return (
-      <div className={this.state.errorMessage ? 'field error' : 'field'}>
+      <div className={this.state.errorMessage ? 'field field--error' : 'field'}>
         <label htmlFor={this.label}>{this.label}</label>
         <select
           id={this.label}
+          disabled={this.state.disabled}
           value={this.state.value || ''}
           ref={select => this.select = select}
           {...this.selectProps}

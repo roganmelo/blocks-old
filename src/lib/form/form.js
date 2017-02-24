@@ -7,7 +7,9 @@ export default class Form extends Component {
 
     const { noValidate, model, ...formProps } = props;
 
-    if(noValidate === false) throw new Error('Form component must have noValidate equal to true.');
+    if(noValidate === false) {
+      throw new Error('Form component must have noValidate equal to true.');
+    }
 
     this.formProps = formProps;
     this.model = model;
@@ -23,21 +25,24 @@ export default class Form extends Component {
   }
 
   componentDidMount() {
-    this.fields = [...this.form].filter(field => (
-      field.nodeName === 'INPUT' || field.nodeName === 'SELECT' || field.nodeName === 'TEXTAREA'
-    ));
-  }
-
-  hasInvalidFields() {
-    return this.fields.filter(field => field.valid === false).length;
+    this.setup();
   }
 
   init() {
-    Emitter.on('data', () => {
-      (this.hasInvalidFields() > 0)
-        ? Emitter.emit('disable-button')
-        : Emitter.emit('enable-button');
-    });
+    Emitter.on('new-input', data => this.fields = [...this.fields, ...data]);
+    Emitter.on('data', () => this.toggleDisableButton());
+  }
+
+  setup() {
+    this.toggleDisableButton();
+  }
+
+  toggleDisableButton() {
+    this.hasInvalidFields() ? Emitter.emit('disable-button') : Emitter.emit('enable-button');
+  }
+
+  hasInvalidFields() {
+    return this.fields.filter(field => field.valid === false).length > 0;
   }
 
   render() {

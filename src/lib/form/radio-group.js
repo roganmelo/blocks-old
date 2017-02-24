@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
 import Emitter from '../utils/emitter';
 
-import SetByDot from '../utils/set-by-dot';
+import SetByDot from '../utils/set-by-dot-radio';
 
 export default class RadioGroup extends Component {
   constructor(props, context) {
     super();
 
-    const { title, type, options, value, name, modelProp, required, optionKeyProp, optionLabelProp, ...radioProps } = props;
+    const { title, type, disabled, options, value, name, modelProp, required,
+      optionKeyProp, optionLabelProp, optionDisabledProp, ...radioProps } = props;
 
-    if(type && type !== 'radio') throw new Error('RadioGroup component works only with type radio.');
-    if(!name) throw new Error('The property name is required.');
+    if(type && type !== 'radio') {
+      throw new Error('RadioGroup component works only with type radio.');
+    }
+
+    if(!name) {
+      throw new Error('The property name is required.');
+    }
 
     this.state = {
+      disabled,
       options,
-      value
+      value: value || '',
+      errorMessage: ''
     };
 
     this.title = title;
@@ -23,6 +31,7 @@ export default class RadioGroup extends Component {
     this.required = required;
     this.optionKeyProp = optionKeyProp;
     this.optionLabelProp = optionLabelProp;
+    this.optionDisabledProp = optionDisabledProp;
     this.radioProps = radioProps;
     this.model = context.model;
     this.items = [];
@@ -36,13 +45,14 @@ export default class RadioGroup extends Component {
     this.update(nextProps);
   }
 
-  setValue(props) {
-    if(props && props.value)
-      SetByDot(this.model, this.modelProp, props.value);
-  }
-
   setup() {
-    const valid = this.required ? false : true;
+    let valid = true;
+
+    if(this.state.value) {
+      valid = true;
+    } else if(this.required) {
+      valid = false;
+    }
 
     this.items.forEach(item => {
       item.valid = valid;
@@ -50,6 +60,8 @@ export default class RadioGroup extends Component {
     });
 
     this.setValue(this.props);
+
+    Emitter.emit('new-input', [...this.items]);
   }
 
   update(props) {
@@ -57,9 +69,15 @@ export default class RadioGroup extends Component {
     this.setValue(props);
   }
 
+  setValue(props) {
+    if(props && props.value)
+      SetByDot(this.model, this.modelProp, props.value, this.name);
+  }
+
   ref(radio) {
-    if(radio && this.items.indexOf(radio) === -1)
+    if(radio && this.items.indexOf(radio) === -1) {
       this.items.push(radio);
+    }
   }
 
   handle(event) {
@@ -69,7 +87,7 @@ export default class RadioGroup extends Component {
       item.valid = true;
     });
 
-    SetByDot(this.model, this.modelProp, event.target.value);
+    SetByDot(this.model, this.modelProp, event.target.value, this.name);
 
     Emitter.emit('data', event.target.value);
   }
@@ -78,27 +96,22 @@ export default class RadioGroup extends Component {
     return (
       <div className='field'>
         <label>{this.title}</label>
-        <div className='container'>
+        <div className='field--inline'>
           {
             this.state.options.map(option =>
-              <div key={option[0][this.optionKeyProp]} className='row'>
-                {
-                  option.map(item =>
-                    <label key={item[this.optionKeyProp]} htmlFor={item[this.optionKeyProp]}>
-                      <input
-                        id={item[this.optionKeyProp]}
-                        type='radio'
-                        name={this.name}
-                        value={item[this.optionKeyProp]}
-                        checked={this.state.value === item[this.optionKeyProp]}
-                        ref={this.ref.bind(this)}
-                        {...this.radioProps}
-                      />
-                      {item[this.optionLabelProp]}
-                    </label>
-                  )
-                }
-              </div>
+              <label key={option[this.optionKeyProp]} htmlFor={option[this.optionKeyProp]}>
+                <input
+                  id={option[this.optionKeyProp]}
+                  type='radio'
+                  name={this.name}
+                  disabled={option[this.optionDisabledProp] || this.state.disabled}
+                  value={option[this.optionKeyProp]}
+                  checked={this.state.value && this.state.value === option[this.optionKeyProp]}
+                  ref={this.ref.bind(this)}
+                  {...this.radioProps}
+                />
+                {option[this.optionLabelProp]}
+              </label>
             )
           }
         </div>

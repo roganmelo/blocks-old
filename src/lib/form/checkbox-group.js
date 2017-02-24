@@ -1,28 +1,32 @@
 import React, { Component } from 'react';
 import Emitter from '../utils/emitter';
 
-import SetByDotArray from '../utils/set-by-dot-array';
+import SetByDot from '../utils/set-by-dot-checkbox';
 
 export default class CheckboxGroup extends Component {
   constructor(props, context) {
     super();
 
-    const { title, type, options, values, name, modelProp, minRequired, optionKeyProp, optionLabelProp, ...checkboxProps } = props;
+    const { type, disabled, options, values, title, modelProp, minRequired,
+      optionKeyProp, optionLabelProp, optionDisabledProp, ...checkboxProps } = props;
 
-    if(type && type !== 'checkbox') throw new Error('CheckboxGroup component works only with type checkbox.');
+    if(type && type !== 'checkbox') {
+      throw new Error('CheckboxGroup component works only with type checkbox.');
+    }
 
     this.state = {
+      disabled,
       options,
-      values,
+      values: values || [],
       errorMessage: ''
     };
 
     this.title = title;
-    this.name = name;
     this.modelProp = modelProp;
     this.minRequired = minRequired;
     this.optionKeyProp = optionKeyProp;
     this.optionLabelProp = optionLabelProp;
+    this.optionDisabledProp = optionDisabledProp;
     this.checkboxProps = checkboxProps;
     this.model = context.model;
     this.items = [];
@@ -36,15 +40,14 @@ export default class CheckboxGroup extends Component {
     this.update(nextProps);
   }
 
-  setValue(props) {
-    const isChecked = true;
-
-    if(props && props.values)
-      props.values.forEach(value => SetByDotArray(this.model, this.modelProp, value, isChecked));
-  }
-
   setup() {
-    let valid = this.minRequired ? false : true;
+    let valid = true;
+
+    if(this.state.values.length > 0) {
+      valid = true;
+    } else if(this.minRequired) {
+      valid = false;
+    }
 
     this.items.forEach(item => {
       item.valid = valid;
@@ -52,6 +55,8 @@ export default class CheckboxGroup extends Component {
     });
 
     this.setValue(this.props);
+
+    Emitter.emit('new-input', [...this.items]);
   }
 
   update(props) {
@@ -59,9 +64,18 @@ export default class CheckboxGroup extends Component {
     this.setValue(props);
   }
 
+  setValue(props) {
+    const isChecked = true;
+
+    if(props && props.values) {
+      props.values.forEach(value => SetByDot(this.model, this.modelProp, value, isChecked));
+    }
+  }
+
   ref(checkbox) {
-    if(checkbox && this.items.indexOf(checkbox) === -1)
+    if(checkbox && this.items.indexOf(checkbox) === -1) {
       this.items.push(checkbox);
+    }
   }
 
   clearError() {
@@ -85,7 +99,10 @@ export default class CheckboxGroup extends Component {
 
     if(this.minRequired) {
       const count = this.items.reduce((prev, curr) => {
-        if(curr.checked) prev++;
+        if(curr.checked) {
+          prev++;
+        }
+        
         return prev;
       }, 0);
 
@@ -97,36 +114,30 @@ export default class CheckboxGroup extends Component {
       }
     }
 
-    SetByDotArray(this.model, this.modelProp, event.target.value, event.target.checked);
+    SetByDot(this.model, this.modelProp, event.target.value, event.target.checked);
 
     Emitter.emit('data', event.target.value);
   }
 
   render() {
     return (
-      <div className={this.state.errorMessage ? 'field error' : 'field'}>
+      <div className={this.state.errorMessage ? 'field field--error' : 'field'}>
         <label>{this.title}</label>
-        <div className='container'>
+        <div className='field--inline'>
           {
             this.state.options.map(option =>
-              <div key={option[0][this.optionKeyProp]} className='row'>
-                {
-                  option.map(item =>
-                    <label key={item[this.optionKeyProp]} htmlFor={item[this.optionKeyProp]}>
-                      <input
-                        id={item[this.optionKeyProp]}
-                        type='checkbox'
-                        name={this.name}
-                        value={item[this.optionKeyProp]}
-                        checked={this.state.values.includes(item[this.optionKeyProp])}
-                        ref={this.ref.bind(this)}
-                        {...this.checkboxProps}
-                      />
-                      {item[this.optionLabelProp]}
-                    </label>
-                  )
-                }
-              </div>
+              <label key={option[this.optionKeyProp]} htmlFor={option[this.optionKeyProp]}>
+                <input
+                  id={option[this.optionKeyProp]}
+                  type='checkbox'
+                  disabled={option[this.optionDisabledProp] || this.state.disabled}
+                  value={option[this.optionKeyProp]}
+                  checked={this.state.values.length > 0 && this.state.values.includes(option[this.optionKeyProp])}
+                  ref={this.ref.bind(this)}
+                  {...this.checkboxProps}
+                />
+                {option[this.optionLabelProp]}
+              </label>
             )
           }
         </div>
