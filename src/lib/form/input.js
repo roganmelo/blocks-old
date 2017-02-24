@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Validator from 'validator';
 import Emitter from '../utils/emitter';
-
 import SetByDot from '../utils/set-by-dot';
 
 export default class Input extends Component {

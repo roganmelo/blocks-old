@@ -1,0 +1,68 @@
+@import "~milligram-scss/dist/milligram.scss";
+
+.spinner-wrapper {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  animation: fadeIn .5s ease;
+  display: none;
+
+  &-actived {
+    display: block;
+    z-index: 99999;
+  }
+}
+
+.spinner-overlay {
+  width: 100%;
+  width: 100vw;
+  height: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.spinner {
+  width: 100px;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  text-align: center;
+  text-transform: uppercase;
+
+  &--ball {
+    width: 20px;
+    height: 20px;
+    background-color: $color-primary;
+    border-radius: 50%;
+    display: inline-block;
+    animation: motion 3s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+  }
+
+  p {
+    color: $color-primary;
+    margin-top: 5px;
+    letter-spacing: 1px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+}
+
+@keyframes motion {
+  0%   { transform: translateX(0) scale(1); }
+  25%  { transform: translateX(-50px) scale(0.3); }
+  50%  { transform: translateX(0) scale(1); }
+  75%  { transform: translateX(50px) scale(0.3); }
+  100% { transform: translateX(0) scale(1); }
+}
+
+@keyframes fadeIn {
+  0%   { opacity: 0 }
+  100% { opacity: 1 }
+}

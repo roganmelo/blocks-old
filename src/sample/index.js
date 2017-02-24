@@ -6,6 +6,7 @@ import App from './app';
 import Home from './home';
 import DatagridSample from './datagrid';
 import FormSample from './form';
+import LoaderSample from './loader';
 import SidebarSample from './sidebar';
 
 ReactDOM.render((
@@ -14,6 +15,7 @@ ReactDOM.render((
       <IndexRoute component={Home}/>
       <Route path='datagrid' component={DatagridSample}/>
       <Route path='form' component={FormSample}/>
+      <Route path='loader/:show' component={LoaderSample}/>
       <Route path='sidebar' component={SidebarSample}/>
     </Route>
   </Router>

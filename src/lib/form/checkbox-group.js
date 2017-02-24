@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Emitter from '../utils/emitter';
-
 import SetByDot from '../utils/set-by-dot-checkbox';
 
 export default class CheckboxGroup extends Component {
@@ -102,7 +101,7 @@ export default class CheckboxGroup extends Component {
         if(curr.checked) {
           prev++;
         }
-        
+
         return prev;
       }, 0);
 

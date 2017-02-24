@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Emitter from '../utils/emitter';
-
 import SetByDot from '../utils/set-by-dot-radio';
 
 export default class RadioGroup extends Component {

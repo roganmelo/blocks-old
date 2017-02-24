@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Emitter from '../utils/emitter';
-
 import SetByDot from '../utils/set-by-dot';
 
 export default class Dropdown extends Component {
