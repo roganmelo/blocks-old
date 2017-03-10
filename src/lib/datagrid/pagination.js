@@ -7,11 +7,11 @@ export default class Pagination extends Component {
 
     const { total, limit, changePageCallback, colSpan } = props;
 
+    this.state = { actualPage: 1 };
+
     this.colSpan = colSpan;
     this.pages = total / limit;
     this.changePageCallback = changePageCallback;
-
-    this.state = { actualPage: 1 };
   }
 
   choosePage(page) {

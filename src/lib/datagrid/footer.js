@@ -4,10 +4,11 @@ export default class Footer extends Component {
   constructor(props, context) {
     super();
 
-    if(!props.colSpan) throw new Error('Footer colSpan needs to be setted.');
+    const { colSpan, ...tfootProps } = props;
 
-    const { ...tfootProps } = props;
+    if(!colSpan) throw new Error('Footer colSpan needs to be setted.');
 
+    this.colSpan = colSpan;
     this.tfootProps = tfootProps;
     this.data = context.data;
   }
@@ -16,7 +17,7 @@ export default class Footer extends Component {
     return (
       <tfoot {...this.tfootProps}>
         <tr>
-          <td colSpan={this.props.colSpan}>
+          <td colSpan={this.colSpan}>
             {
               this.props.children
                 ? this.props.children

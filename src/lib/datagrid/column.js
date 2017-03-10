@@ -17,22 +17,22 @@ export default class Column extends Component {
     this.dataProp = dataProp;
     this.thProps = thProps;
     this.updateDataCallback = context.updateDataCallback;
-
-    this.init();
   }
 
   componentDidMount() {
-    if(this.detachable)
-      this.th.addEventListener('click', this.sort.bind(this));
+    this.setup();
   }
 
-  init() {
+  setup() {
     Emitter.on('sort-datagrid', (dataProp) => {
       if(this.dataProp !== dataProp)
         this.setState({ className: '' });
     });
 
     Emitter.on('update-datagrid', data => this.setState({ data }));
+
+    if(this.detachable)
+      this.th.addEventListener('click', this.sort.bind(this));
   }
 
   sort() {

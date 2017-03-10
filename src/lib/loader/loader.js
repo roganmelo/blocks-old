@@ -9,11 +9,9 @@ export default class Loader extends Component {
       text: props.text || 'LOADING',
       actived: false
     };
-
-    this.init();
   }
 
-  init() {
+  componentDidMount() {
     Emitter.on('loader:show', (text = this.state.text) => this.setState({ actived: true, text }));
     Emitter.on('loader:hide', () => this.setState({ actived: false }));
   }

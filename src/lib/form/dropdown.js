@@ -103,7 +103,7 @@ export default class Dropdown extends Component {
         <select
           id={this.label}
           disabled={this.state.disabled}
-          value={this.state.value || ''}
+          defaultValue={this.state.value}
           ref={select => this.select = select}
           {...this.selectProps}
         >

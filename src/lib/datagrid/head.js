@@ -7,18 +7,17 @@ export default class Head extends Component {
 
     const { selectAllCheckbox, ...headProps } = props;
 
-    this.state = { data: context.data };
+    this.state = { checked: false };
 
     this.selectAllCheckbox = selectAllCheckbox;
     this.headProps = headProps;
+    this.data = context.data;
     this.updateDataCallback = context.updateDataCallback;
-
-    this.init();
   }
 
   getChildContext() {
     return {
-      data: this.state.data,
+      data: this.data,
       updateDataCallback: this.updateDataCallback
     };
   }
@@ -27,13 +26,13 @@ export default class Head extends Component {
     this.setup();
   }
 
-  init() {
-    Emitter.on('uncheck', () => this.checkbox.checked = false);
-    Emitter.on('update-datagrid', data => this.setState({ data }));
-  }
-
   setup() {
-    this.checkbox.addEventListener('click', () => Emitter.emit('toggle-check-all', this.checkbox.checked));
+    Emitter.on('uncheck', () => this.setState({ checked: false }));
+
+    this.checkbox.addEventListener('click', () => {
+      this.setState({ checked: !this.state.checked });
+      Emitter.emit('toggle-check-all', this.state.checked);
+    });
   }
 
   render() {
@@ -45,6 +44,7 @@ export default class Head extends Component {
               && <th>
                    <input
                      type='checkbox'
+                     checked={this.state.checked}
                      ref={checkbox => this.checkbox = checkbox}
                    />
                  </th>

@@ -6,11 +6,9 @@ export default class Filters extends Component {
     super();
 
     this.state = { show: false };
-
-    this.init();
   }
 
-  init() {
+  componentDidMount() {
     Emitter.on('show-filters', () => this.setState({ show: !this.state.show }));
   }
 

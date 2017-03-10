@@ -14,8 +14,6 @@ export default class Form extends Component {
     this.formProps = formProps;
     this.model = model;
     this.fields = [];
-
-    this.init();
   }
 
   getChildContext() {
@@ -28,12 +26,10 @@ export default class Form extends Component {
     this.setup();
   }
 
-  init() {
+  setup() {
     Emitter.on('new-input', data => this.fields = [...this.fields, ...data]);
     Emitter.on('data', () => this.toggleDisableButton());
-  }
 
-  setup() {
     this.toggleDisableButton();
   }
 

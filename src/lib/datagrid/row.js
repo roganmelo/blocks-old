@@ -13,8 +13,6 @@ export default class Row extends Component {
     this.hasCheckbox = hasCheckbox;
     this.selectable = selectable;
     this.rowProps = rowProps;
-
-    this.init();
   }
 
   componentDidMount() {
@@ -25,11 +23,9 @@ export default class Row extends Component {
     this.model = nextProps.model;
   }
 
-  init() {
-    Emitter.on('toggle-check-all', checked => checked ? this.check() : this.uncheck());
-  }
-
   setup() {
+    Emitter.on('toggle-check-all', checked => checked ? this.check() : this.uncheck());
+
     this.checkbox.addEventListener('click', () => this.state.checked ? this.uncheck() : this.check());
   }
 
@@ -41,7 +37,7 @@ export default class Row extends Component {
   uncheck() {
     this.setState({ checked: false });
     this.model.checked = false;
-    Emitter.emit('uncheck', checked => checked ? this.check() : this.uncheck());
+    Emitter.emit('uncheck');
   }
 
   render() {

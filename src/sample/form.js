@@ -17,7 +17,7 @@ export default class FormSample extends Component {
 
   render() {
     return (
-      <div>
+      <div className='content'>
         <Form model={this.foo}>
           <h1>Form</h1>
           <Input

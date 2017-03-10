@@ -42,22 +42,19 @@ export default class DatagridSample extends Component {
     ];
 
     this.state = {
+      actualPage: 1,
       total: 6,
       limit: 2,
       data: [
         {
           id: '123123',
           name: 'João',
-          lastName: {
-            foo: 'da Silva'
-          }
+          lastName: 'da Silva'
         },
         {
           id: '321321',
           name: 'Maria',
-          lastName: {
-            foo: 'do Nascimento'
-          }
+          lastName: 'do Nascimento'
         }
       ]
     };
@@ -71,7 +68,10 @@ export default class DatagridSample extends Component {
     const begin = (page - 1) * this.state.limit;
     const end = (page - 1) * this.state.limit + this.state.limit;
 
-    this.setState({ data: this.list.slice(begin, end) });
+    this.setState({
+      actualPage: page,
+      data: this.list.slice(begin, end)
+    });
   }
 
   render() {
@@ -109,58 +109,60 @@ export default class DatagridSample extends Component {
             Foobar
           </label>
         </Filters>
-        <Datagrid
-          data={this.state.data}
-          placeholder='No records found.'
-          updateDataCallback={updatedData => this.setState({ data: updatedData })}
-        >
-          <Head selectAllCheckbox={true}>
-            <Column
-              detachable={true}
-              dataProp='id'
-            >
-              Id
-            </Column>
-            <Column
-              detachable={true}
-              dataProp='name'
-            >
-              Name
-            </Column>
-            <Column
-              detachable={true}
-              dataProp='lastName.foo'
-            >
-              Last Name
-            </Column>
-          </Head>
-          <Body>
-            {
-              this.state.data.map(person =>
-                <Row
-                  key={person.id}
-                  model={person}
-                  selectable={true}
-                  hasCheckbox={true}
-                >
-                  <Cell>{person.id}</Cell>
-                  <Cell>{person.name}</Cell>
-                  <Cell>{person.lastName.foo}</Cell>
-                </Row>
-              )
-            }
-          </Body>
-          <Pagination
-            total={50}
-            limit={15}
-            colSpan={4}
-            resume='1 - 10 of 103 people'
-            changePageCallback={this.changePage.bind(this)}
-          />
-          <Footer colSpan={4}>
-            {this.state.data.length} people
-          </Footer>
-        </Datagrid>
+        <div className='list-content'>
+          <Datagrid
+            data={this.state.data}
+            placeholder='No records found.'
+            updateDataCallback={updatedData => this.setState({ data: updatedData })}
+          >
+            <Head selectAllCheckbox={true}>
+              <Column
+                detachable={true}
+                dataProp='id'
+              >
+                Id
+              </Column>
+              <Column
+                detachable={true}
+                dataProp='name'
+              >
+                Name
+              </Column>
+              <Column
+                detachable={true}
+                dataProp='lastName'
+              >
+                Last Name
+              </Column>
+            </Head>
+            <Body>
+              {
+                this.state.data.map(person =>
+                  <Row
+                    key={person.id}
+                    model={person}
+                    selectable={true}
+                    hasCheckbox={true}
+                  >
+                    <Cell>{person.id}</Cell>
+                    <Cell>{person.name}</Cell>
+                    <Cell>{person.lastName}</Cell>
+                  </Row>
+                )
+              }
+            </Body>
+            <Pagination
+              total={50}
+              limit={15}
+              colSpan={4}
+              resume={`${this.state.actualPage} - ${this.state.total / this.state.limit} of ${this.state.total} people`}
+              changePageCallback={this.changePage.bind(this)}
+            />
+            <Footer colSpan={4}>
+              {this.state.data.length} people
+            </Footer>
+          </Datagrid>
+        </div>
       </div>
     );
   }

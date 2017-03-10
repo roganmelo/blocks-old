@@ -123,7 +123,7 @@ export default class Input extends Component {
           id={this.label}
           type={this.type}
           disabled={this.state.disabled}
-          value={this.state.value || ''}
+          defaultValue={this.state.value}
           ref={input => this.input = input}
           {...this.inputProps}
         />

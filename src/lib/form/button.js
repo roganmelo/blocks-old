@@ -16,15 +16,17 @@ export default class Button extends Component {
 
     this.disableOnInvalid = disableOnInvalid;
     this.buttonProps = buttonProps;
+  }
 
-    this.init();
+  componentDidMount() {
+    this.setup();
   }
 
   componentWillReceiveProps(nextProps) {
     this.update(nextProps);
   }
 
-  init() {
+  setup() {
     Emitter.on('disable-button', () => this.setState({ disabled: true }));
     Emitter.on('enable-button', () => this.setState({ disabled: false }));
   }

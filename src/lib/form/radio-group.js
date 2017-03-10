@@ -105,7 +105,7 @@ export default class RadioGroup extends Component {
                   name={this.name}
                   disabled={option[this.optionDisabledProp] || this.state.disabled}
                   value={option[this.optionKeyProp]}
-                  checked={this.state.value && this.state.value === option[this.optionKeyProp]}
+                  defaultChecked={this.state.value && this.state.value === option[this.optionKeyProp]}
                   ref={this.ref.bind(this)}
                   {...this.radioProps}
                 />

@@ -1,7 +1,8 @@
 import React from 'react';
 
 export default ({ children }) => (
-  <aside className='sidebar'>
+  <div className='header'>
     {children}
-  </aside>
+    <div className='divider'></div>
+  </div>
 );
