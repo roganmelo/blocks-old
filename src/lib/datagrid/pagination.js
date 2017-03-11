@@ -25,7 +25,6 @@ export default class Pagination extends Component {
       <tfoot className='pagination'>
         <tr>
           <td colSpan={this.colSpan}>
-            <span className='resume'>{this.props.resume}</span>
             <ul className='pages'>
               {
                 this.state.actualPage > 1

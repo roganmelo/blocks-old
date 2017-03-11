@@ -5,17 +5,22 @@ const items = [
     label: 'Home'
   },
   {
-    icon: 'fa fa-users',
+    icon: 'fa fa-circle',
+    path: '/badge',
+    label: 'Badges'
+  },
+  {
+    icon: 'fa fa-table',
     path: '/datagrid',
     label: 'Datagrid/Toolbar'
   },
   {
-    icon: 'fa fa-users',
+    icon: 'fa fa-align-justify',
     path: '/form',
     label: 'Form'
   },
   {
-    icon: 'fa fa-newspaper-o',
+    icon: 'fa fa-spinner',
     path: `/loader/${true}`,
     label: 'Loader'
   },

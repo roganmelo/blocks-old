@@ -5,11 +5,11 @@ export default class Head extends Component {
   constructor(props, context) {
     super();
 
-    const { selectAllCheckbox, ...headProps } = props;
+    const { checkAll, ...headProps } = props;
 
     this.state = { checked: false };
 
-    this.selectAllCheckbox = selectAllCheckbox;
+    this.checkAll = checkAll;
     this.headProps = headProps;
     this.data = context.data;
     this.updateDataCallback = context.updateDataCallback;
@@ -40,7 +40,7 @@ export default class Head extends Component {
       <thead {...this.headProps}>
         <tr>
           {
-            this.selectAllCheckbox
+            this.checkAll
               && <th>
                    <input
                      type='checkbox'

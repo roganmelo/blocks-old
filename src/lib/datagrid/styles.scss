@@ -1,18 +1,22 @@
+@import '../variables.scss';
+
 .datagrid {
+  padding: $datagrid-padding;
+
   .placeholder {
-    padding: 50px;
+    padding: 20px;
     text-align: center;
 
     i {
-      font-size: 80px;
+      font-size: 50px;
     }
 
     p {
-      font-size: 50px;
+      font-size: 20px;
     }
   }
 
-  th.detachable {
+  th.sortable {
     cursor: pointer;
 
     .caret {
@@ -35,27 +39,18 @@
     margin-bottom: 0;
   }
 
-  td:first-child,
-  th:first-child {
-    padding-left: 15px !important;
-  }
-
-  tr.selected {
-    background-color: #d9e4ea;
+  tr.checked {
+    background-color: $color-checked-row;
   }
 
   tr.selectable:hover {
-    background: rgba(0, 0, 0, .05);
+    background-color: $color-hover;
     cursor: pointer;
-  }
-
-  tfoot td {
-    text-align: right;
-    padding-right: 15px !important;
   }
 
   .pagination {
     td {
+      text-align: right;
       border-bottom: none;
     }
 
@@ -87,12 +82,12 @@
         }
 
         &:hover {
-          background: rgba(0, 0, 0, .05);
+          background-color: $color-hover;
         }
 
         &.active {
           cursor: default;
-          background: rgba(0, 0, 0, .05);
+          background-color: $color-hover;
         }
 
         &.disabled {

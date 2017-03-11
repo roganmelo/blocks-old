@@ -1,6 +1,10 @@
-@import "~milligram-scss/dist/milligram.scss";
+@import '../variables.scss';
 
-form {
+.form {
+  max-width: $form-max-width;
+  margin: 0 auto;
+  padding-top: $form-padding-top;
+
   .field {
     position: relative;
 
@@ -23,7 +27,7 @@ form {
       color: inherit;
 
       &:focus {
-        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 29 14" width="29"><path fill="#d1d1d1" d="M9.37727 3.625l5.08154 6.93523L19.54036 3.625"/></svg>') center right no-repeat
+        background: $dropdown-arrow-down;
       }
     }
 
@@ -35,7 +39,7 @@ form {
       input,
       select,
       textarea {
-        border-color: red !important;
+        border-color: $color-danger !important;
       }
 
       span {
@@ -44,14 +48,10 @@ form {
         right: 0;
         bottom: -1px;
         font-size: 11px;
-        color: #f00;
+        color: $color-danger;
         text-transform: uppercase;
         font-weight: 400;
       }
     }
-  }
-
-  button {
-    margin-top: 10px;
   }
 }

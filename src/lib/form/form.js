@@ -43,15 +43,17 @@ export default class Form extends Component {
 
   render() {
     return (
-      <form
-        noValidate
-        ref={form => this.form = form}
-        {...this.formProps}
-      >
-        <fieldset>
-          {this.props.children}
-        </fieldset>
-      </form>
+      <div className='form'>
+        <form
+          noValidate
+          ref={form => this.form = form}
+          {...this.formProps}
+        >
+          <fieldset>
+            {this.props.children}
+          </fieldset>
+        </form>
+      </div>
     );
   }
 }

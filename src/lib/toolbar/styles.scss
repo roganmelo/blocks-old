@@ -1,9 +1,12 @@
-@import "~font-awesome/css/font-awesome.min.css";
+@import '~font-awesome/css/font-awesome.min.css';
+@import '../variables.scss';
 
 .toolbar {
+  position: fixed;
+  background-color: $toolbar-background-color;
   width: 100%;
-  height: 60px;
-  border-bottom: 1px solid #e8e8e8;
+  height: $toolbar-height;
+  border-bottom: 1px solid $toolbar-divider-color;
 
   .title {
     display: inline-block;
@@ -11,15 +14,14 @@
     font-weight: 500;
     line-height: 60px;
     padding: 0 15px;
-    color: #606c76;
+    color: $toolbar-title-color;
   }
 
   .actions {
-    float: right;
+    position: absolute;
+    right: 275px;
     display: inline-block;
-    padding-right: 15px;
-    color: #757575;
-    height: 60px;
+    color: $toolbar-actions-text-color;
 
     .search {
       display: inline-block;
@@ -58,13 +60,13 @@
         }
 
         &:first-child,
-        &.filter-button {
+        &.auxiliary-button {
           position: relative;
           padding-left: 15px;
 
           &:before {
             content: '';
-            background-color: #e8e8e8;
+            background-color: $toolbar-divider-color;
             height: 35px;
             width: 1px;
             position: absolute;
@@ -85,26 +87,25 @@
         }
 
         a {
-          color: #606c76;
+          color: $toolbar-actions-text-color;
         }
       }
     }
   }
 }
 
-.filters {
-  position: absolute;
-  top: 60px;
-  right: 0;
-  background-color: white;
-  border-left: 1px solid #e8e8e8;
-  width: 325px;
-  height: calc(100vh - 60px);
-  transform: translate3d(325px, 0, 0);
-  transition: transform .2s ease .1s;
+.auxiliary {
+  position: fixed;
+  top: $toolbar-height;
+  background-color: $toolbar-background-color;
+  border-left: 1px solid $toolbar-divider-color;
+  width: $auxiliary-width;
+  height: calc(100vh - #{$toolbar-height});
+  right: -$auxiliary-width;
+  transition: right .3s ease-in-out;
 
   &.active {
-    transform: translate3d(0, 0, 0);
+    right: 0;
   }
 
   &--content {
@@ -114,14 +115,15 @@
       font-size: 20px;
       font-weight: 500;
       line-height: 60px;
-      color: #606c76;
+      color: $toolbar-title-color;
     }
 
     label {
       font-weight: 300;
       margin-right: 20px;
 
-      input {
+      input,
+      select {
         margin-right: 5px;
         vertical-align: text-top;
       }

@@ -8,10 +8,10 @@ export default class Toolbar extends Component {
         <div className='title'>{this.props.title}</div>
         <div className='actions'>
           {
-            this.props.searchInput
+            this.props.searchInputPlaceholder
               && <div className='search'>
                    <i className='fa fa-search'></i>
-                   <input type='text' placeholder={this.props.searchInput.placeholder} />
+                   <input type='text' placeholder={this.props.searchInputPlaceholder} />
                  </div>
           }
           <ul>
@@ -21,13 +21,13 @@ export default class Toolbar extends Component {
                 : <li>{this.props.children}</li>
             }
             {
-              this.props.filterButtonLabel
+              this.props.auxiliaryButton
                 && <li
-                     className='filter-button'
-                     onClick={() => Emitter.emit('show-filters')}
+                     className='auxiliary-button'
+                     onClick={() => Emitter.emit('show-auxiliary')}
                    >
-                     <i className='fa fa-filter'></i>
-                     {this.props.filterButtonLabel}
+                     <i className={this.props.auxiliaryButton.icon}></i>
+                     {this.props.auxiliaryButton.label}
                    </li>
             }
           </ul>

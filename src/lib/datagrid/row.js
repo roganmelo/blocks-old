@@ -5,12 +5,12 @@ export default class Row extends Component {
   constructor(props, context) {
     super();
 
-    const { model, hasCheckbox, selectable, ...rowProps } = props;
+    const { model, checkbox, selectable, ...rowProps } = props;
 
     this.state = { checked: false };
 
     this.model = model;
-    this.hasCheckbox = hasCheckbox;
+    this.checkbox = checkbox;
     this.selectable = selectable;
     this.rowProps = rowProps;
   }
@@ -43,11 +43,11 @@ export default class Row extends Component {
   render() {
     return (
       <tr
-        className={this.state.checked ? 'selected' : '' + this.selectable ? 'selectable' : ''}
+        className={this.state.checked ? 'checked' : '' + this.selectable ? 'selectable' : ''}
         {...this.rowProps}
       >
         {
-          this.hasCheckbox
+          this.checkbox
             && <td>
                  <input
                    type='checkbox'

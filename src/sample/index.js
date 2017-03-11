@@ -7,14 +7,16 @@ import Home from './home';
 import DatagridSample from './datagrid';
 import FormSample from './form';
 import LoaderSample from './loader';
+import BadgeSample from './badge';
 
 ReactDOM.render((
   <Router history={browserHistory}>
-    <Route path='/loader/:show' component={LoaderSample}/>
     <Route path='/' component={App}>
       <IndexRoute component={Home}/>
+      <Route path='badge' component={BadgeSample}/>
       <Route path='datagrid' component={DatagridSample}/>
       <Route path='form' component={FormSample}/>
+      <Route path='/loader/:show' component={LoaderSample}/>
     </Route>
   </Router>
 ), document.getElementById('root'));
