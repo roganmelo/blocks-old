@@ -6,10 +6,7 @@ $color-tertiary:   #f4f5f6;
 $color-quaternary: #d1d1d1;
 $color-quinary:    #e1e1e1;
 
-$color-success: #21ba45;
-$color-info: #2185d0;
-$color-warning: #fbbd08;
-$color-danger: #db2828;
+$color-danger: red;
 
 $color-hover: rgba(0, 0, 0, .05);
 $color-border: #e8e8e8;
@@ -19,30 +16,20 @@ $alert-background: #f8f8f9;
 
 $alert-success-background: #fcfff5;
 $alert-success-text-color: #1a531b;
-$alert-success-content: '\f058';
 
 $alert-info-background: #f8ffff;
 $alert-info-text-color: #0e566c;
-$alert-info-content: '\f05a';
 
 $alert-warning-background: #fffaf3;
 $alert-warning-text-color: #794b02;
-$alert-warning-content: '\f071';
 
 $alert-danger-background: #fff6f6;
 $alert-danger-text-color: #912d2b;
-$alert-danger-content: '\f057';
-
-// Card
-$card-max-width: 600px;
 
 // Datagrid
-$datagrid-padding: 100px 50px 0;
 $color-checked-row: #d9e4ea;
 
 // Form
-$form-max-width: 600px;
-$form-padding-top: 50px;
 $dropdown-arrow-down: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 29 14" width="29"><path fill="#d1d1d1" d="M9.37727 3.625l5.08154 6.93523L19.54036 3.625"/></svg>') center right no-repeat;
 
 // Grid

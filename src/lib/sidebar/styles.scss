@@ -8,6 +8,7 @@ aside.sidebar + * {
 .sidebar {
   position: $sidebar-position;
   top: 0;
+  overflow-y: auto;
   background-color: $sidebar-background-color;
   width: $sidebar-width;
   height: 100%;

@@ -5,7 +5,7 @@ import { Card, Header, Content, MiniImage, Footer } from '../../lib/card';
 
 export default ({ children }) => (
   <div style={{ padding: '50px 50px 0 50px' }}>
-    <h1>Card</h1>
+    <h1>Cards</h1>
 
     <Grid>
       <Row>

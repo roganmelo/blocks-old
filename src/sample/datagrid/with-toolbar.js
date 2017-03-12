@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { Toolbar, Auxiliary } from '../../lib/toolbar';
 import { Datagrid, Header, Column, Body, Row, Cell, Footer, Pagination } from '../../lib/datagrid';
 
-export default class DatagridSample extends Component {
+export default class DatagridWithToolbarSample extends Component {
   constructor() {
     super();
 
@@ -74,7 +74,7 @@ export default class DatagridSample extends Component {
     return (
       <div>
         <Toolbar
-          title='Datagrid/Toolbar'
+          title='With Toolbar'
           searchInputPlaceholder='Search'
           auxiliaryButton={{
             icon: 'fa fa-filter',
@@ -101,58 +101,58 @@ export default class DatagridSample extends Component {
             Foobar
           </label>
         </Auxiliary>
-        <Datagrid
-          data={this.state.data}
-          placeholder='No records found.'
-          updateDataCallback={data => this.setState({ data })}
-        >
-          <Header checkAll={true}>
-            <Column
-              sortable={true}
-              dataProp='id'
-            >
-              Id
-            </Column>
-            <Column
-              sortable={true}
-              dataProp='name'
-            >
-              Name
-            </Column>
-            <Column
-              sortable={true}
-              dataProp='lastName'
-            >
-              Last Name
-            </Column>
-          </Header>
-          <Body>
-            {
-              this.state.data.map(person =>
-                <Row
-                  key={person.id}
-                  model={person}
-                  selectable={true}
-                  checkbox={true}
-                >
-                  <Cell>{person.id}</Cell>
-                  <Cell>{person.name}</Cell>
-                  <Cell>{person.lastName}</Cell>
-                </Row>
-              )
-            }
-          </Body>
-          <Pagination
-            total={this.state.total}
-            limit={this.state.limit}
-            colSpan={4}
-            changePageCallback={this.changePage.bind(this)}
-          />
-          <Footer colSpan={4}>
-            {this.state.data.length} people
-          </Footer>
-        </Datagrid>
-        <div style={{ padding: '0 50px' }}>
+        <div style={{ padding: '100px 50px 0' }}>
+          <Datagrid
+            data={this.state.data}
+            placeholder='No records found.'
+            updateDataCallback={data => this.setState({ data })}
+          >
+            <Header checkAll={true}>
+              <Column
+                sortable={true}
+                dataProp='id'
+              >
+                Id
+              </Column>
+              <Column
+                sortable={true}
+                dataProp='name'
+              >
+                Name
+              </Column>
+              <Column
+                sortable={true}
+                dataProp='lastName'
+              >
+                Last Name
+              </Column>
+            </Header>
+            <Body>
+              {
+                this.state.data.map(person =>
+                  <Row
+                    key={person.id}
+                    model={person}
+                    selectable={true}
+                    checkbox={true}
+                  >
+                    <Cell>{person.id}</Cell>
+                    <Cell>{person.name}</Cell>
+                    <Cell>{person.lastName}</Cell>
+                  </Row>
+                )
+              }
+            </Body>
+            <Pagination
+              total={this.state.total}
+              limit={this.state.limit}
+              colSpan={4}
+              changePageCallback={this.changePage.bind(this)}
+            />
+            <Footer colSpan={4}>
+              {this.state.data.length} people
+            </Footer>
+          </Datagrid>
           <pre>
             <code>
               {

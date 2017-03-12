@@ -17,7 +17,10 @@ export default class Auxiliary extends Component {
 
   render() {
     return (
-      <div style={this.style} className={this.state.show ? `auxiliary active ${this.className}` : `auxiliary ${this.className}`}>
+      <div
+        style={this.style}
+        className={this.state.show ? `auxiliary active ${this.className || ''}` : `auxiliary ${this.className || ''}`}
+      >
         <div className='auxiliary--content'>
           <div className='title'>{this.props.title}</div>
           {this.props.children}

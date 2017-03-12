@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class Badge extends Component {
+export default class Label extends Component {
   render() {
     const style = {
       backgroundColor: this.props.color,
@@ -10,7 +10,7 @@ export default class Badge extends Component {
     return (
       <span
         style={style}
-        className='badge'
+        className='label'
       >
         {this.props.children}
       </span>

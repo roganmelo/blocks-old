@@ -11,7 +11,10 @@ export default class Toolbar extends Component {
 
   render() {
     return (
-      <div style={this.style} className={`toolbar ${this.className}`}>
+      <div
+        style={this.style}
+        className={`toolbar ${this.className || ''}`}
+      >
         <div className='title'>{this.props.title}</div>
         <div className='actions'>
           {

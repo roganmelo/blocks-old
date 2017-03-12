@@ -4,21 +4,31 @@ import { Badge } from '../../lib/badge';
 
 export default ({ children }) => (
   <div style={{ padding: '50px 50px 0 50px' }}>
-    <h1>Badge</h1>
+    <h1>Badges</h1>
 
-    <Badge type='success'>10</Badge>
-    <Badge type='info'>20</Badge>
-    <Badge type='warning'>30</Badge>
-    <Badge type='danger'>40</Badge>
+    <Badge color='#21ba45'>10</Badge>
+    <Badge color='#2185d0'>20</Badge>
+    <Badge
+      color='#fbbd08'
+      blackText={true}
+    >
+      30
+    </Badge>
+    <Badge color='#db2828'>40</Badge>
 
     <pre>
       <code>
         {
           `
-            <Badge type='success'>10</Badge>
-            <Badge type='info'>20</Badge>
-            <Badge type='warning'>30</Badge>
-            <Badge type='danger'>40</Badge>
+            <Badge color='#21ba45'>10</Badge>
+            <Badge color='#2185d0'>20</Badge>
+            <Badge
+              color='#fbbd08'
+              blackText={true}
+            >
+              30
+            </Badge>
+            <Badge color='#db2828'>40</Badge>
           `
         }
       </code>

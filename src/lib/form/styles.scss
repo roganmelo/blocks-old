@@ -1,9 +1,7 @@
 @import '../variables.scss';
 
 .form {
-  max-width: $form-max-width;
   margin: 0 auto;
-  padding-top: $form-padding-top;
 
   .field {
     position: relative;

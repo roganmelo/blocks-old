@@ -5,12 +5,12 @@ const items = [
     label: 'Home'
   },
   {
-    icon: 'fa fa-bell-o',
+    icon: 'fa fa-bell',
     path: '/alert',
     label: 'Alerts'
   },
   {
-    icon: 'fa fa-address-card-o',
+    icon: 'fa fa-address-card',
     path: '/card',
     label: 'Cards'
   },
@@ -20,9 +20,19 @@ const items = [
     label: 'Badges'
   },
   {
+    id: 'datagrid',
     icon: 'fa fa-table',
-    path: '/datagrid',
-    label: 'Datagrid/Toolbar'
+    label: 'Datagrid',
+    innerItems: [
+      {
+        path: '/datagrid',
+        label: 'Base'
+      },
+      {
+        path: '/datagrid/toolbar',
+        label: 'With Toolbar'
+      }
+    ]
   },
   {
     icon: 'fa fa-align-justify',
@@ -33,6 +43,11 @@ const items = [
     icon: 'fa fa-th',
     path: '/grid',
     label: 'Grid'
+  },
+  {
+    icon: 'fa fa-tag',
+    path: '/label',
+    label: 'Labels'
   },
   {
     icon: 'fa fa-spinner',

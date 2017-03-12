@@ -17,7 +17,7 @@ export default class FormSample extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ maxWidth: '600px', paddingTop: '50px', margin: '0 auto' }}>
         <Form model={this.foo}>
           <h1>Form</h1>
           <Input
