@@ -13,7 +13,7 @@ export default class Alert extends Component {
     }
 
     return (
-      <div className={`alert ${this.props.type}`}>
+      <div className={`alert ${this.props.type || 'info'}`}>
         <span className='alert-header'>
           {this.props.title}
           {

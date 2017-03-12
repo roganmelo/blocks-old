@@ -3,7 +3,7 @@ import React from 'react';
 import { Alert } from '../../lib/alert';
 
 export default ({ children }) => (
-  <div style={{ maxWidth: '600px', margin: '0 auto', paddingTop: '50px' }}>
+  <div style={{ padding: '50px 50px 0 50px' }}>
     <h1>Alert</h1>
 
     <Alert

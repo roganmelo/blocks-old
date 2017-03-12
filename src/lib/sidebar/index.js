@@ -1,7 +1,7 @@
 import './styles.scss';
 
 export { default as Sidebar } from './sidebar';
-export { default as Header } from './header';
+export { default as SidebarHeader } from './header';
 export { default as Profile } from './profile';
 export { default as SidebarForm } from './form';
 export { default as Menu } from './menu';

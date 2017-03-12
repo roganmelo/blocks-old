@@ -5,6 +5,7 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import App from './app';
 import Home from './home';
 import AlertSample from './alert';
+import CardSample from './card';
 import DatagridSample from './datagrid';
 import FormSample from './form';
 import LoaderSample from './loader';
@@ -15,10 +16,11 @@ ReactDOM.render((
     <Route path='/' component={App}>
       <IndexRoute component={Home}/>
       <Route path='alert' component={AlertSample}/>
+      <Route path='card' component={CardSample}/>
       <Route path='badge' component={BadgeSample}/>
       <Route path='datagrid' component={DatagridSample}/>
       <Route path='form' component={FormSample}/>
-      <Route path='/loader/:show' component={LoaderSample}/>
+      <Route path='loader/:show' component={LoaderSample}/>
     </Route>
   </Router>
 ), document.getElementById('root'));

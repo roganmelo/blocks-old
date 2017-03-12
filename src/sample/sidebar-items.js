@@ -7,7 +7,12 @@ const items = [
   {
     icon: 'fa fa-bell-o',
     path: '/alert',
-    label: 'Alert'
+    label: 'Alerts'
+  },
+  {
+    icon: 'fa fa-address-card-o',
+    path: '/card',
+    label: 'Cards'
   },
   {
     icon: 'fa fa-circle',

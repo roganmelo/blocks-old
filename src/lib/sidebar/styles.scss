@@ -12,7 +12,7 @@ aside.sidebar + * {
   width: $sidebar-width;
   height: 100%;
   height: 100vh;
-  color: $sidebar-color;
+  color: $color-initial;
 
   .header {
     border-bottom: 1px solid $sidebar-divider-color;
@@ -88,7 +88,7 @@ aside.sidebar + * {
         border-left: 3px solid $sidebar-active-item-border-left-color;
 
         a {
-          color: $sidebar-active-item-text-color;
+          color: $color-initial;
         }
       }
 
@@ -133,7 +133,7 @@ aside.sidebar + * {
   padding-right: 0 !important;
 
   &.active {
-    color: $sidebar-active-item-text-color;
+    color: $color-initial;
   }
 
   label {
@@ -176,7 +176,7 @@ aside.sidebar + * {
 
       &.active {
         a {
-          color: $sidebar-active-item-text-color;
+          color: $color-initial;
         }
       }
 

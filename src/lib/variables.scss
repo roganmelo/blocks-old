@@ -1,5 +1,5 @@
 // Colors
-$color-initial:    #fff;
+$color-initial:    white;
 $color-primary:    #03A9F4;
 $color-secondary:  #606c76;
 $color-tertiary:   #f4f5f6;
@@ -12,6 +12,7 @@ $color-warning: #fbbd08;
 $color-danger: #db2828;
 
 $color-hover: rgba(0, 0, 0, .05);
+$color-border: #e8e8e8;
 
 // Alert
 $alert-background: #f8f8f9;
@@ -32,6 +33,9 @@ $alert-danger-background: #ffe8e6;
 $alert-danger-text-color: #912d2b;
 $alert-danger-content: '\f057';
 
+// Card
+$card-max-width: 600px;
+
 // Datagrid
 $datagrid-padding: 100px 50px 0 50px;
 $color-checked-row: #d9e4ea;
@@ -47,19 +51,13 @@ $spinner-overlay-background-color: rgba(255, 255, 255, 0.9);
 // Sidebar
 $sidebar-width: 260px;
 $sidebar-background-color: #252d3a;
-$sidebar-color: white;
 $sidebar-divider-color: rgba(255, 255, 255, .1);
 $sidebar-item-text-color: #868c98;
 $sidebar-hover-item-background-color: #1f2631;
 $sidebar-active-item-border-left-color: #2196F3;
-$sidebar-active-item-text-color: white;
 
 // Toolbar
-$toolbar-background-color: white;
 $toolbar-height: 60px;
-$toolbar-divider-color: #e8e8e8;
-$toolbar-title-color: #606c76;
-$toolbar-actions-text-color: #606c76;
 $auxiliary-width: 325px;
 
 @import '~milligram-scss/dist/milligram.scss';

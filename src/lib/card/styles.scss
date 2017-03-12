@@ -1,0 +1,72 @@
+@import '../variables.scss';
+
+.card {
+  max-width: $card-max-width;
+  position: relative;
+  display: block;
+  background-color: $color-initial;
+  width: 100%;
+  margin-top: 24px;
+  border-radius: 3px;
+  border: 1px solid $color-border;
+
+  &--header {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: normal;
+    border-bottom: 1px solid $color-border;
+
+    .text {
+      padding: 12px 18px;
+    }
+
+    img {
+      display: block;
+      height: auto;
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  &--content {
+    padding: 12px 18px;
+    letter-spacing: normal;
+
+    .title {
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .mini-img {
+      padding: 0 0 10px 0;
+      display: flex;
+
+      img {
+        display: inline-block;
+        max-height: 60px;
+        max-width: 60px;
+        border-radius: 3px;
+      }
+
+      .description {
+        display: block;
+        padding: 5px 10px;
+      }
+    }
+
+    .text {
+      font-size: 14px;
+    }
+  }
+
+  &--footer {
+    padding: 12px 18px;
+    letter-spacing: normal;
+    border-top: 1px solid $color-border;
+
+    button {
+      margin-bottom: 0;
+      margin-right: 5px;
+    }
+  }
+}

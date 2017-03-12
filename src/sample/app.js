@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import SidebarItems from './sidebar-items';
-import { Sidebar, Header, Profile, SidebarForm, Menu } from '../lib/sidebar';
+import { Sidebar, SidebarHeader, Profile, SidebarForm, Menu } from '../lib/sidebar';
 
 export default class App extends Component {
   constructor() {
@@ -21,7 +21,7 @@ export default class App extends Component {
     return (
       <main>
         <Sidebar>
-          <Header>
+          <SidebarHeader>
             <Profile
               userImg={this.user.img}
               username={this.user.name}
@@ -37,7 +37,7 @@ export default class App extends Component {
                 <option>Golfville</option>
               </select>
             </SidebarForm>
-          </Header>
+          </SidebarHeader>
           <Menu items={SidebarItems}/>
         </Sidebar>
         <div>

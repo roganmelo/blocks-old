@@ -3,10 +3,10 @@
 
 .toolbar {
   position: fixed;
-  background-color: $toolbar-background-color;
+  background-color: $color-initial;
   width: 100%;
   height: $toolbar-height;
-  border-bottom: 1px solid $toolbar-divider-color;
+  border-bottom: 1px solid $color-border;
 
   .title {
     display: inline-block;
@@ -14,14 +14,14 @@
     font-weight: 500;
     line-height: 60px;
     padding: 0 15px;
-    color: $toolbar-title-color;
+    color: $color-secondary;
   }
 
   .actions {
     position: absolute;
     right: 275px;
     display: inline-block;
-    color: $toolbar-actions-text-color;
+    color: $color-secondary;
 
     .search {
       display: inline-block;
@@ -66,7 +66,7 @@
 
           &:before {
             content: '';
-            background-color: $toolbar-divider-color;
+            background-color: $color-border;
             height: 35px;
             width: 1px;
             position: absolute;
@@ -87,7 +87,7 @@
         }
 
         a {
-          color: $toolbar-actions-text-color;
+          color: $color-initial;
         }
       }
     }
@@ -97,8 +97,8 @@
 .auxiliary {
   position: fixed;
   top: $toolbar-height;
-  background-color: $toolbar-background-color;
-  border-left: 1px solid $toolbar-divider-color;
+  background-color: $color-initial;
+  border-left: 1px solid $color-border;
   width: $auxiliary-width;
   height: calc(100vh - #{$toolbar-height});
   right: -$auxiliary-width;
@@ -115,7 +115,7 @@
       font-size: 20px;
       font-weight: 500;
       line-height: 60px;
-      color: $toolbar-title-color;
+      color: $color-secondary;
     }
 
     label {

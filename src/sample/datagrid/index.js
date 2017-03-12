@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 import { Toolbar, Auxiliary } from '../../lib/toolbar';
-import { Datagrid, Head, Column, Body, Row, Cell, Footer, Pagination } from '../../lib/datagrid';
+import { Datagrid, Head, Column, Body, Row, Cell, DatagridFooter, Pagination } from '../../lib/datagrid';
 
 export default class DatagridSample extends Component {
   constructor() {
@@ -148,9 +148,9 @@ export default class DatagridSample extends Component {
             colSpan={4}
             changePageCallback={this.changePage.bind(this)}
           />
-          <Footer colSpan={4}>
+          <DatagridFooter colSpan={4}>
             {this.state.data.length} people
-          </Footer>
+          </DatagridFooter>
         </Datagrid>
         <div style={{ padding: '0 50px' }}>
           <pre>
@@ -233,9 +233,9 @@ export default class DatagridSample extends Component {
                         colSpan={4}
                         changePageCallback={this.changePage.bind(this)}
                       />
-                      <Footer colSpan={4}>
+                      <DatagridFooter colSpan={4}>
                         {this.state.data.length} people
-                      </Footer>
+                      </DatagridFooter>
                     </Datagrid>
                   </div>
                 `

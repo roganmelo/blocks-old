@@ -3,7 +3,7 @@ import React from 'react';
 import { Badge } from '../../lib/badge';
 
 export default ({ children }) => (
-  <div style={{ maxWidth: '600px', margin: '0 auto', paddingTop: '50px' }}>
+  <div style={{ padding: '50px 50px 0 50px' }}>
     <h1>Badge</h1>
 
     <Badge type='success'>10</Badge>
