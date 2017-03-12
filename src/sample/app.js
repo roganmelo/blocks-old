@@ -14,7 +14,7 @@ export default class App extends Component {
   }
 
   logout() {
-
+    alert('Logout');
   }
 
   render() {
@@ -32,9 +32,9 @@ export default class App extends Component {
             />
             <Form>
               <select id='buildings'>
-                <option>Aquaville</option>
-                <option>Mandara</option>
-                <option>Golfville</option>
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
               </select>
             </Form>
           </Header>

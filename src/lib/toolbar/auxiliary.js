@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import Emitter from '../utils/emitter';
 
 export default class Auxiliary extends Component {
-  constructor() {
+  constructor(props) {
     super();
 
     this.state = { show: false };
+
+    this.style = props.style;
+    this.className = props.className;
   }
 
   componentDidMount() {
@@ -14,7 +17,7 @@ export default class Auxiliary extends Component {
 
   render() {
     return (
-      <div className={this.state.show ? 'auxiliary active' : 'auxiliary'}>
+      <div style={this.style} className={this.state.show ? `auxiliary active ${this.className}` : `auxiliary ${this.className}`}>
         <div className='auxiliary--content'>
           <div className='title'>{this.props.title}</div>
           {this.props.children}

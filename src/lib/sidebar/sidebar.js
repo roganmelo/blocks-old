@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default ({ children }) => (
-  <aside className='sidebar'>
+export default ({ style, className, children }) => (
+  <aside style={style} className={`sidebar ${className}`}>
     {children}
   </aside>
 );

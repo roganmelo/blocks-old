@@ -1,7 +1,9 @@
+@import '../variables.scss';
+
 .container {
-  padding: 0 !important;
+  padding: $grid-padding !important;
 
   .row {
-    margin-bottom: 10px;
+    margin-bottom: $grid-margin-bottom;
   }
 }

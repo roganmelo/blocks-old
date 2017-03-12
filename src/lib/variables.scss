@@ -37,7 +37,7 @@ $alert-danger-content: '\f057';
 $card-max-width: 600px;
 
 // Datagrid
-$datagrid-padding: 100px 50px 0 50px;
+$datagrid-padding: 100px 50px 0;
 $color-checked-row: #d9e4ea;
 
 // Form
@@ -45,10 +45,15 @@ $form-max-width: 600px;
 $form-padding-top: 50px;
 $dropdown-arrow-down: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 29 14" width="29"><path fill="#d1d1d1" d="M9.37727 3.625l5.08154 6.93523L19.54036 3.625"/></svg>') center right no-repeat;
 
+// Grid
+$grid-padding: 0;
+$grid-margin-bottom: 10px;
+
 // Loader
 $spinner-overlay-background-color: rgba(255, 255, 255, 0.9);
 
 // Sidebar
+$sidebar-position: fixed;
 $sidebar-width: 260px;
 $sidebar-background-color: #252d3a;
 $sidebar-divider-color: rgba(255, 255, 255, .1);
@@ -57,6 +62,7 @@ $sidebar-hover-item-background-color: #1f2631;
 $sidebar-active-item-border-left-color: #2196F3;
 
 // Toolbar
+$toolbar-position: fixed;
 $toolbar-height: 60px;
 $auxiliary-width: 325px;
 

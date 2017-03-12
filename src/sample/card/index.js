@@ -17,9 +17,8 @@ export default ({ children }) => (
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </Content>
             <Footer>
-              <button className='button button-clear'>Footer Action 1</button>
-              <button className='button button-clear'>Footer Action 2</button>
-              <button className='button button-clear'>Footer Action 3</button>
+              <button className='button button-clear'>Action 1</button>
+              <button className='button button-clear'>Action 2</button>
             </Footer>
           </Card>
         </Column>
@@ -35,6 +34,11 @@ export default ({ children }) => (
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </Content>
+            <Footer>
+              <button className='button button-clear'>Action 1</button>
+              <button className='button button-clear'>Action 2</button>
+              <button className='button button-clear'>Action 2</button>
+            </Footer>
           </Card>
         </Column>
       </Row>
@@ -47,12 +51,16 @@ export default ({ children }) => (
                 src='http://i.pravatar.cc/150?img=5'
                 alt='girl'
               >
-                <div>Luana Guimarães</div>
+                <div><strong>Luana Guimarães</strong></div>
                 <div>Developer</div>
               </MiniImage>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </Content>
+            <Footer>
+              <button className='button button-clear'>Action 1</button>
+              <button className='button button-clear'>Action 2</button>
+            </Footer>
           </Card>
         </Column>
       </Row>
@@ -62,45 +70,64 @@ export default ({ children }) => (
       <code>
         {
           `
-            <Card>
-              <Header>Header</Header>
-              <Content title='Title'>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </Content>
-              <Footer>
-                <button className='button button-clear'>Footer Action 1</button>
-                <button className='button button-clear'>Footer Action 2</button>
-                <button className='button button-clear'>Footer Action 3</button>
-              </Footer>
-            </Card>
+            <Grid>
+              <Row>
+                <Column>
+                  <Card>
+                    <Header>Header</Header>
+                    <Content title='Title'>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                      eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </Content>
+                    <Footer>
+                      <button className='button button-clear'>Action 1</button>
+                      <button className='button button-clear'>Action 2</button>
+                    </Footer>
+                  </Card>
+                </Column>
+                <Column>
+                  <Card>
+                    <Header
+                      image={{
+                        src: 'http://vmware.github.io/clarity/assets/images/documentation/cards/placeholder_350x150.png',
+                        alt: 'image'
+                      }}
+                    />
+                    <Content title='Title'>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                      eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </Content>
+                    <Footer>
+                      <button className='button button-clear'>Action 1</button>
+                      <button className='button button-clear'>Action 2</button>
+                      <button className='button button-clear'>Action 2</button>
+                    </Footer>
+                  </Card>
+                </Column>
+              </Row>
 
-            <Card>
-              <Header
-                image={{
-                  src: 'http://vmware.github.io/clarity/assets/images/documentation/cards/placeholder_350x150.png',
-                  alt: 'image'
-                }}
-              />
-              <Content title='Title'>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </Content>
-            </Card>
-
-            <Card>
-              <Content>
-                <MiniImage
-                  src='http://i.pravatar.cc/150?img=5'
-                  alt='girl'
-                >
-                  <div>Luana Guimarães</div>
-                  <div>Developer</div>
-                </MiniImage>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </Content>
-            </Card>
+              <Row>
+                <Column>
+                  <Card>
+                    <Content>
+                      <MiniImage
+                        src='http://i.pravatar.cc/150?img=5'
+                        alt='girl'
+                      >
+                        <div>Luana Guimarães</div>
+                        <div>Developer</div>
+                      </MiniImage>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                      eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </Content>
+                    <Footer>
+                      <button className='button button-clear'>Action 1</button>
+                      <button className='button button-clear'>Action 2</button>
+                    </Footer>
+                  </Card>
+                </Column>
+              </Row>
+            </Grid>
           `
         }
       </code>

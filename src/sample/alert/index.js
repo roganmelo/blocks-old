@@ -7,36 +7,32 @@ export default ({ children }) => (
     <h1>Alert</h1>
 
     <Alert
-      title='Success'
+      title='Your user registration was successful.'
       type='success'
       closeButton={true}
     >
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      You may now log-in with the username you have chosen
     </Alert>
     <Alert
-      title='Info'
+      title='Was this what you wanted?'
       type='info'
       closeButton={true}
     >
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Did you know it's been a while?
     </Alert>
     <Alert
-      title='Warning'
+      title='You must register before you can do that!'
       type='warning'
       closeButton={true}
     >
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Visit our registration page, then try again
     </Alert>
     <Alert
-      title='Danger'
+      title='There were some errors with your submission'
       type='danger'
       closeButton={true}
     >
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      You must include both a upper and lower case letters in your password.
     </Alert>
 
     <pre>
@@ -44,36 +40,32 @@ export default ({ children }) => (
         {
           `
             <Alert
-              title='Success'
+              title='Your user registration was successful.'
               type='success'
               closeButton={true}
             >
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              You may now log-in with the username you have chosen
             </Alert>
             <Alert
-              title='Info'
+              title='Was this what you wanted?'
               type='info'
               closeButton={true}
             >
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Did you know it's been a while?
             </Alert>
             <Alert
-              title='Warning'
+              title='You must register before you can do that!'
               type='warning'
               closeButton={true}
             >
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Visit our registration page, then try again
             </Alert>
             <Alert
-              title='Danger'
+              title='There were some errors with your submission'
               type='danger'
               closeButton={true}
             >
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              You must include both a upper and lower case letters in your password.
             </Alert>
           `
         }

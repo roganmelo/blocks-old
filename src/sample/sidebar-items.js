@@ -30,9 +30,24 @@ const items = [
     label: 'Form'
   },
   {
+    icon: 'fa fa-th',
+    path: '/grid',
+    label: 'Grid'
+  },
+  {
     icon: 'fa fa-spinner',
     path: `/loader/${true}`,
     label: 'Loader'
+  },
+  {
+    icon: 'fa fa-bars',
+    path: '/sidebar',
+    label: 'Sidebar'
+  },
+  {
+    icon: 'fa fa-cog',
+    path: '/toolbar',
+    label: 'Toolbar'
   },
   // {
   //   id: 'roles',

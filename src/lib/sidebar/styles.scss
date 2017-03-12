@@ -6,7 +6,7 @@ aside.sidebar + * {
 }
 
 .sidebar {
-  position: fixed;
+  position: $sidebar-position;
   top: 0;
   background-color: $sidebar-background-color;
   width: $sidebar-width;
@@ -121,7 +121,7 @@ aside.sidebar + * {
   input, select {
     -webkit-appearance: none;
     color: inherit;
-    height: 28px;
+    height: 28px !important;
   }
 
   select:focus {

@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 import Emitter from '../utils/emitter';
 
 export default class Toolbar extends Component {
+  constructor(props) {
+    super();
+
+    this.style = props.style;
+    this.className = props.className;
+  }
+
   render() {
     return (
-      <div className='toolbar'>
+      <div style={this.style} className={`toolbar ${this.className}`}>
         <div className='title'>{this.props.title}</div>
         <div className='actions'>
           {

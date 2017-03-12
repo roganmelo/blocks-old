@@ -2,9 +2,10 @@
 @import '../variables.scss';
 
 .toolbar {
-  position: fixed;
+  position: $toolbar-position;
+  right: 0;
+  left: $sidebar-width;
   background-color: $color-initial;
-  width: 100%;
   height: $toolbar-height;
   border-bottom: 1px solid $color-border;
 
@@ -18,8 +19,8 @@
   }
 
   .actions {
-    position: absolute;
-    right: 275px;
+    float: right;
+    padding-right: 15px;
     display: inline-block;
     color: $color-secondary;
 
@@ -57,6 +58,7 @@
 
         a {
           cursor: pointer;
+          color: $color-secondary;
         }
 
         &:first-child,
@@ -85,17 +87,13 @@
           margin-right: 5px;
           font-size: 18px;
         }
-
-        a {
-          color: $color-initial;
-        }
       }
     }
   }
 }
 
 .auxiliary {
-  position: fixed;
+  position: $toolbar-position;
   top: $toolbar-height;
   background-color: $color-initial;
   border-left: 1px solid $color-border;

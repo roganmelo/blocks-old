@@ -15,6 +15,7 @@ export default class Alert extends Component {
     return (
       <div className={`alert ${this.props.type || 'info'}`}>
         <span className='alert-header'>
+          <i className='icon'></i>
           {this.props.title}
           {
             this.props.closeButton
