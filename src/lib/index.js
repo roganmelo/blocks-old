@@ -1,3 +1,5 @@
+export { Alert } from './alert';
+export { Badge } from './badge';
 export { Datagrid, Head, Column, Body, Row, Cell, Footer, Pagination } from './datagrid';
 export { Form, Input, Dropdown, CheckboxGroup, RadioGroup, TextArea, Button } from './form';
 export { Loader } from './loader';

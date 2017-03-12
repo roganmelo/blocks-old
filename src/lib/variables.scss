@@ -13,6 +13,25 @@ $color-danger: #db2828;
 
 $color-hover: rgba(0, 0, 0, .05);
 
+// Alert
+$alert-background: #f8f8f9;
+
+$alert-success-background: #dff0d0;
+$alert-success-text-color: #1a531b;
+$alert-success-content: '\f058';
+
+$alert-info-background: #dff0ff;
+$alert-info-text-color: #0e566c;
+$alert-info-content: '\f05a';
+
+$alert-warning-background: #fff8db;
+$alert-warning-text-color: #794b02;
+$alert-warning-content: '\f071';
+
+$alert-danger-background: #ffe8e6;
+$alert-danger-text-color: #912d2b;
+$alert-danger-content: '\f057';
+
 // Datagrid
 $datagrid-padding: 100px 50px 0 50px;
 $color-checked-row: #d9e4ea;

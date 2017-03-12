@@ -1,0 +1,80 @@
+@import '~font-awesome/css/font-awesome.min.css';
+@import '../variables.scss';
+
+.alert {
+  background: $alert-background;
+  font-size: 14px;
+  letter-spacing: normal;
+  line-height: 16px;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 36px;
+  width: auto;
+  padding: 10px 12px 10px;
+  border-radius: .28571429rem;
+  margin-top: 6px;
+
+  &-header {
+    font-size: 1.14285714em;
+    font-weight: 700;
+    margin-bottom: 5px;
+
+    &:before {
+      margin-right: 5px;
+      font-family: FontAwesome;
+    }
+
+    i {
+      cursor: pointer;
+      float: right;
+      opacity: .6;
+    }
+  }
+
+  &-text {
+    font-weight: 400;
+    opacity: .8;
+  }
+
+  &.success {
+    background-color: $alert-success-background;
+    color: $alert-success-text-color;
+    border: 1px solid $alert-success-text-color;
+
+    .alert-header:before {
+      content: $alert-success-content;
+    }
+  }
+
+  &.info {
+    background-color: $alert-info-background;
+    color: $alert-info-text-color;
+    border: 1px solid $alert-info-text-color;
+
+    .alert-header:before {
+      content: $alert-info-content;
+    }
+  }
+
+  &.warning {
+    background-color: $alert-warning-background;
+    color: $alert-warning-text-color;
+    border: 1px solid $alert-warning-text-color;
+
+    .alert-header:before {
+      content: $alert-warning-content;
+    }
+  }
+
+  &.danger {
+    background-color: $alert-danger-background;
+    color: $alert-danger-text-color;
+    border: 1px solid $alert-danger-text-color;
+
+    .alert-header:before {
+      content: $alert-danger-content;
+    }
+  }
+}

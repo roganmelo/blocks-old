@@ -4,7 +4,7 @@ import { Badge } from '../../lib/badge';
 
 export default ({ children }) => (
   <div style={{ maxWidth: '600px', margin: '0 auto', paddingTop: '50px' }}>
-    <h1>Badges</h1>
+    <h1>Badge</h1>
 
     <Badge type='success'>10</Badge>
     <Badge type='info'>20</Badge>

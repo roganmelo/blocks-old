@@ -5,6 +5,11 @@ const items = [
     label: 'Home'
   },
   {
+    icon: 'fa fa-bell-o',
+    path: '/alert',
+    label: 'Alert'
+  },
+  {
     icon: 'fa fa-circle',
     path: '/badge',
     label: 'Badges'
