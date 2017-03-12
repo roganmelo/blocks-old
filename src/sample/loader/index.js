@@ -9,9 +9,9 @@ export default class LoaderSample extends Component {
 
   render() {
     return (
-      <div style={{ maxWidth: '600px', margin: '0 auto', paddingTop: '50px' }}>
+      <div style={{ padding: '50px 50px 0 50px' }}>
         <h1>Loader</h1>
-        <div style={{ position: 'relative', height: '300px', maxWidth: '600px', border: '1px solid #d1d1d1' }}>
+        <div style={{ position: 'relative', height: '300px', border: '1px solid #d1d1d1' }}>
           <div className='spinner'>
             <div className='spinner--ball'></div>
             <p>Loading</p>

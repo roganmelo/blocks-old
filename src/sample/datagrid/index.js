@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 import { Toolbar, Auxiliary } from '../../lib/toolbar';
-import { Datagrid, Head, Column, Body, Row, Cell, DatagridFooter, Pagination } from '../../lib/datagrid';
+import { Datagrid, Header, Column, Body, Row, Cell, Footer, Pagination } from '../../lib/datagrid';
 
 export default class DatagridSample extends Component {
   constructor() {
@@ -106,7 +106,7 @@ export default class DatagridSample extends Component {
           placeholder='No records found.'
           updateDataCallback={data => this.setState({ data })}
         >
-          <Head checkAll={true}>
+          <Header checkAll={true}>
             <Column
               sortable={true}
               dataProp='id'
@@ -125,7 +125,7 @@ export default class DatagridSample extends Component {
             >
               Last Name
             </Column>
-          </Head>
+          </Header>
           <Body>
             {
               this.state.data.map(person =>
@@ -148,9 +148,9 @@ export default class DatagridSample extends Component {
             colSpan={4}
             changePageCallback={this.changePage.bind(this)}
           />
-          <DatagridFooter colSpan={4}>
+          <Footer colSpan={4}>
             {this.state.data.length} people
-          </DatagridFooter>
+          </Footer>
         </Datagrid>
         <div style={{ padding: '0 50px' }}>
           <pre>
@@ -191,7 +191,7 @@ export default class DatagridSample extends Component {
                       placeholder='No records found.'
                       updateDataCallback={data => this.setState({ data })}
                     >
-                      <Head checkAll={true}>
+                      <Header checkAll={true}>
                         <Column
                           sortable={true}
                           dataProp='id'
@@ -210,7 +210,7 @@ export default class DatagridSample extends Component {
                         >
                           Last Name
                         </Column>
-                      </Head>
+                      </Header>
                       <Body>
                         {
                           this.state.data.map(person =>
@@ -233,9 +233,9 @@ export default class DatagridSample extends Component {
                         colSpan={4}
                         changePageCallback={this.changePage.bind(this)}
                       />
-                      <DatagridFooter colSpan={4}>
+                      <Footer colSpan={4}>
                         {this.state.data.length} people
-                      </DatagridFooter>
+                      </Footer>
                     </Datagrid>
                   </div>
                 `

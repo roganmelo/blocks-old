@@ -6,7 +6,6 @@
   display: block;
   background-color: $color-initial;
   width: 100%;
-  margin-top: 24px;
   border-radius: 3px;
   border: 1px solid $color-border;
 
@@ -51,6 +50,7 @@
       .description {
         display: block;
         padding: 5px 10px;
+        font-size: 16px;
       }
     }
 

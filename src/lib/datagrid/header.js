@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Emitter from '../utils/emitter';
 
-export default class Head extends Component {
+export default class Header extends Component {
   constructor(props, context) {
     super();
 
@@ -61,5 +61,5 @@ const TYPES = {
   updateDataCallback: React.PropTypes.func
 }
 
-Head.contextTypes = TYPES;
-Head.childContextTypes = TYPES
+Header.contextTypes = TYPES;
+Header.childContextTypes = TYPES
