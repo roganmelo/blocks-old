@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Toolbar, Auxiliary } from '../../lib/toolbar';
 
-export default class LoaderSample extends Component {
+export default class ToolbarSample extends Component {
   render() {
     return (
       <div style={{ padding: '50px 50px 0 50px' }}>

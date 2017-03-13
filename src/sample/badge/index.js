@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Badge } from '../../lib/badge';
 
-export default ({ children }) => (
+export default () => (
   <div style={{ padding: '50px 50px 0 50px' }}>
     <h1>Badges</h1>
 

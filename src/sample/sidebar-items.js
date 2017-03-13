@@ -35,6 +35,11 @@ const items = [
     ]
   },
   {
+    icon: 'fa fa-times-circle',
+    path: '/error',
+    label: 'Error'
+  },
+  {
     icon: 'fa fa-align-justify',
     path: '/form',
     label: 'Form'

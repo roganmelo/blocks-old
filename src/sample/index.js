@@ -9,6 +9,7 @@ import BadgeSample from './badge';
 import CardSample from './card';
 import DatagridSample from './datagrid/base';
 import DatagridWithToolbarSample from './datagrid/with-toolbar';
+import ErrorSample from './error';
 import FormSample from './form';
 import GridSample from './grid';
 import LabelSample from './label';
@@ -25,6 +26,7 @@ ReactDOM.render((
       <Route path='badge' component={BadgeSample}/>
       <Route path='datagrid' component={DatagridSample}/>
       <Route path='datagrid/toolbar' component={DatagridWithToolbarSample}/>
+      <Route path='error' component={ErrorSample}/>
       <Route path='form' component={FormSample}/>
       <Route path='grid' component={GridSample}/>
       <Route path='label' component={LabelSample}/>

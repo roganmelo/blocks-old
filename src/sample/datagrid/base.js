@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Datagrid, Header, Column, Body, Row, Cell, Footer, Pagination } from '../../lib/datagrid';
 
-export default class DatagridWithToolbarSample extends Component {
+export default class DatagridSample extends Component {
   constructor() {
     super();
 

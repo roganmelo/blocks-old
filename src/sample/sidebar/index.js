@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Sidebar, Header, Profile, Form, Menu } from '../../lib/sidebar';
 
-export default class LoaderSample extends Component {
+export default class SidebarSample extends Component {
   constructor() {
     super();
 

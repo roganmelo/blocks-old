@@ -3,7 +3,7 @@ import React from 'react';
 import { Grid, Row, Column } from '../../lib/grid';
 import { Card, Header, Content, MiniImage, Footer } from '../../lib/card';
 
-export default ({ children }) => (
+export default () => (
   <div style={{ padding: '50px 50px 0 50px' }}>
     <h1>Cards</h1>
 
