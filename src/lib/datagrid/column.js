@@ -39,13 +39,27 @@ export default class Column extends Component {
     if(this.state.className === '' || this.state.className === 'caret up') {
       this.setState({ className: 'caret' });
 
-      this.updateDataCallback(this.state.data.sort((a, b) =>
-        GetByDot(a, this.dataProp).toString().localeCompare(GetByDot(b, this.dataProp).toString())));
+      this.updateDataCallback(this.state.data.sort((a, b) => {
+        const prev = GetByDot(a, this.dataProp);
+        const next = GetByDot(b, this.dataProp);
+
+        if(!prev) return 1;
+        if(!next) return -1;
+
+        return prev.toString().localeCompare(next.toString());
+      }));
     } else if(this.state.className === 'caret') {
       this.setState({ className: 'caret up' });
 
-      this.updateDataCallback(this.state.data.sort((a, b) =>
-        GetByDot(b, this.dataProp).toString().localeCompare(GetByDot(a, this.dataProp).toString())));
+      this.updateDataCallback(this.state.data.sort((a, b) => {
+        const prev = GetByDot(a, this.dataProp);
+        const next = GetByDot(b, this.dataProp);
+
+        if(!next) return 1;
+        if(!prev) return -1;
+
+        return next.toString().localeCompare(prev.toString());
+      }));
     }
 
     Emitter.emit('sort-datagrid', this.dataProp);

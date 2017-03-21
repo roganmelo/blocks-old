@@ -3,6 +3,76 @@
 .form {
   margin: 0 auto;
 
+  .input-file {
+    display: flex;
+    height: 3.8rem;
+
+    button {
+      height: 100%;
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    .content {
+      display: flex;
+      width: 100%;
+      padding: 5px 10px;
+      overflow: hidden;
+      border: 1px solid $color-quaternary;
+      border-left: none;
+      border-top-right-radius: .4rem;
+      border-bottom-right-radius: .4rem;
+
+      & > span {
+        width: 100%;
+      }
+
+      i.fa-times {
+        cursor: pointer;
+        opacity: .6;
+      }
+    }
+
+    input[type='file'] {
+      display: none;
+    }
+  }
+
+  .img-field {
+    overflow: hidden;
+    text-align: -webkit-center;
+
+    &-content {
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      width: 200px;
+      height: 200px;
+
+      &.circular {
+        border-radius: 100%;
+      }
+    }
+
+    input[type='file'] {
+      display: none;
+    }
+
+    span {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      background-color: black;
+      width: 100%;
+      opacity: .6;
+      color: white;
+      line-height: 40px;
+      font-weight: 500;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+  }
+
   .field {
     position: relative;
 
@@ -29,7 +99,7 @@
       }
     }
 
-    span {
+    & > span {
       display: none;
     }
 
@@ -40,7 +110,7 @@
         border-color: $color-danger !important;
       }
 
-      span {
+      & > span {
         display: block;
         position: absolute;
         right: 0;

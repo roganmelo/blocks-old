@@ -33,8 +33,11 @@ export default class Datagrid extends Component {
         {
           this.state.data.length === 0
             && <div className='placeholder'>
-                 <i className='fa fa-frown-o'></i>
-                 <p>{this.placeholder}</p>
+                 {
+                    this.placeholder.icon
+                      && <i className='fa fa-frown-o'></i>
+                 }
+                 <p>{this.placeholder.message}</p>
                </div>
         }
         {

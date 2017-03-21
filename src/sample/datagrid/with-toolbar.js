@@ -104,7 +104,9 @@ export default class DatagridWithToolbarSample extends Component {
         <div style={{ padding: '100px 50px 0' }}>
           <Datagrid
             data={this.state.data}
-            placeholder='No records found.'
+            placeholder={{
+              message: 'No records found.'
+            }}
             updateDataCallback={data => this.setState({ data })}
           >
             <Header checkAll={true}>
@@ -188,7 +190,9 @@ export default class DatagridWithToolbarSample extends Component {
                   <div className='list-content'>
                     <Datagrid
                       data={this.state.data}
-                      placeholder='No records found.'
+                      placeholder={{
+                        message: 'No records found.'
+                      }}
                       updateDataCallback={data => this.setState({ data })}
                     >
                       <Header checkAll={true}>

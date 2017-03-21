@@ -3,7 +3,7 @@ export { Badge } from './badge';
 export { Card, CardHeader, Content, MiniImage, CardFooter } from './card';
 export { Datagrid, DatagridHeader, DatagridColumn, Body, DatagridRow, Cell, DatagridFooter, Pagination } from './datagrid';
 export { Error } from './error';
-export { Form, Input, Dropdown, CheckboxGroup, RadioGroup, TextArea, Button } from './form';
+export { Form, Input, Dropdown, CheckboxGroup, RadioGroup, InputFile, ProfileImage, TextArea, Button } from './form';
 export { Grid, GridRow, GridColumn } from './grid';
 export { Label } from './label';
 export { Loader } from './loader';

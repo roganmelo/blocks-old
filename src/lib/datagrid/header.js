@@ -29,10 +29,12 @@ export default class Header extends Component {
   setup() {
     Emitter.on('uncheck', () => this.setState({ checked: false }));
 
-    this.checkbox.addEventListener('click', () => {
-      this.setState({ checked: !this.state.checked });
-      Emitter.emit('toggle-check-all', this.state.checked);
-    });
+    if(this.checkbox) {
+      this.checkbox.addEventListener('click', () => {
+        this.setState({ checked: !this.state.checked });
+        Emitter.emit('toggle-check-all', this.state.checked);
+      });
+    }
   }
 
   render() {

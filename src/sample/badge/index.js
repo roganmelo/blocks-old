@@ -6,15 +6,15 @@ export default () => (
   <div style={{ padding: '50px 50px 0 50px' }}>
     <h1>Badges</h1>
 
-    <Badge color='#21ba45'>10</Badge>
-    <Badge color='#2185d0'>20</Badge>
+    <Badge color='#4CAF50'>10</Badge>
+    <Badge color='#03A9F4'>20</Badge>
     <Badge
-      color='#fbbd08'
+      color='#FBC02D'
       blackText={true}
     >
       30
     </Badge>
-    <Badge color='#db2828'>40</Badge>
+    <Badge color='#F44336'>40</Badge>
 
     <pre>
       <code>

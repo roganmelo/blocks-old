@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-export default ({ id, icon, label, items, selectedItem }) => (
+export default ({ id, icon, label, locale, items, selectedItem }) => (
   <li className={items.some(item => item.path === selectedItem) ? 'accordion active' : 'accordion'}>
     <label htmlFor={id}>
       <i className={icon}></i>
@@ -13,7 +13,7 @@ export default ({ id, icon, label, items, selectedItem }) => (
       {
         items.map(item =>
           <li key={item.path} className={item.path === selectedItem ? 'active' : ''}>
-            <Link to={item.path}>{item.label}</Link>
+            <Link to={locale ? `/${locale}${item.path}` : item.path}>{item.label}</Link>
           </li>
         )
       }

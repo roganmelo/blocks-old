@@ -71,7 +71,9 @@ export default class DatagridSample extends Component {
 
         <Datagrid
           data={this.state.data}
-          placeholder='No records found.'
+          placeholder={{
+            message: 'No records found.'
+          }}
           updateDataCallback={data => this.setState({ data })}
         >
           <Header checkAll={true}>
@@ -126,7 +128,9 @@ export default class DatagridSample extends Component {
               `
                 <Datagrid
                   data={this.state.data}
-                  placeholder='No records found.'
+                  placeholder={{
+                    message: 'No records found.'
+                  }}
                   updateDataCallback={data => this.setState({ data })}
                 >
                   <Header checkAll={true}>

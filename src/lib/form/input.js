@@ -7,11 +7,10 @@ export default class Input extends Component {
   constructor(props, context) {
     super();
 
-    const { type, disabled, value, label, modelProp, validateOn, validators,
-      ...inputProps } = props;
+    const { type, disabled, value, label, modelProp, validateOn, validators, ...inputProps } = props;
 
     if(type && (type === 'checkbox' || type === 'radio')) {
-      throw new Error('Input component doesnt works with types checkbox or radio.');
+      throw new Error('Input component doesnt works with types checkbox, radio or file.');
     }
 
     this.state = {
@@ -123,7 +122,7 @@ export default class Input extends Component {
           id={this.label}
           type={this.type}
           disabled={this.state.disabled}
-          defaultValue={this.state.value}
+          value={this.state.value}
           ref={input => this.input = input}
           {...this.inputProps}
         />

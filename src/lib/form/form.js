@@ -14,20 +14,16 @@ export default class Form extends Component {
     this.formProps = formProps;
     this.model = model;
     this.fields = [];
+
+    this.init();
   }
 
   getChildContext() {
-    return {
-      model: this.model
-    };
+    return { model: this.model };
   }
 
-  componentDidMount() {
-    this.setup();
-  }
-
-  setup() {
-    Emitter.on('new-input', data => this.fields = [...this.fields, ...data]);
+  init() {
+    Emitter.on('new-input', field => this.fields = [...this.fields, ...field]);
     Emitter.on('data', () => this.toggleDisableButton());
 
     this.toggleDisableButton();
@@ -38,7 +34,8 @@ export default class Form extends Component {
   }
 
   hasInvalidFields() {
-    return this.fields.filter(field => field.valid === false).length > 0;
+    const invalidFields = this.fields.filter(field => field.valid === false);
+    return invalidFields.length > 0;
   }
 
   render() {
@@ -58,6 +55,4 @@ export default class Form extends Component {
   }
 }
 
-Form.childContextTypes = {
-  model: React.PropTypes.object
-};
+Form.childContextTypes = { model: React.PropTypes.object };

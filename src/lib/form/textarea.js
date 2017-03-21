@@ -119,7 +119,7 @@ export default class TextArea extends Component {
         <textarea
           id={this.label}
           disabled={this.state.disabled}
-          defaultValue={this.state.value}
+          value={this.state.value}
           ref={textarea => this.textarea = textarea}
           {...this.textareaProps}
         ></textarea>

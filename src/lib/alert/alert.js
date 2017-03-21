@@ -14,23 +14,29 @@ export default class Alert extends Component {
 
     return (
       <div className={`alert ${this.props.type || 'info'}`}>
-        <span className='alert-header'>
-          {
-            this.props.icon
-              && <i className={`icon ${this.props.icon}`}></i>
-          }
-          {this.props.title}
-          {
-            this.props.closeButton
-              && <i
+        {
+          this.props.icon
+            && <div className='icon'>
+                 <i className={this.props.icon}></i>
+               </div>
+        }
+        <div className='alert-content'>
+          <div className='alert-header'>
+            {this.props.title}
+          </div>
+          <div className='alert-text'>
+            {this.props.children}
+          </div>
+        </div>
+        {
+          this.props.closeButton
+            && <div>
+                 <i
                    className='fa fa-times'
                    onClick={() => this.setState({ closed: true })}
                  ></i>
-          }
-        </span>
-        <span className='alert-text'>
-          {this.props.children}
-        </span>
+               </div>
+        }
       </div>
     );
   }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Emitter from '../utils/emitter';
 
 export default class Row extends Component {
-  constructor(props, context) {
+  constructor(props) {
     super();
 
     const { model, checkbox, selectable, ...rowProps } = props;
@@ -13,6 +13,10 @@ export default class Row extends Component {
     this.checkbox = checkbox;
     this.selectable = selectable;
     this.rowProps = rowProps;
+  }
+
+  getChildContext() {
+    return { selectableCallback: this.selectable.callback };
   }
 
   componentDidMount() {
@@ -26,7 +30,9 @@ export default class Row extends Component {
   setup() {
     Emitter.on('toggle-check-all', checked => checked ? this.check() : this.uncheck());
 
-    this.checkbox.addEventListener('click', () => this.state.checked ? this.uncheck() : this.check());
+    if(this.checkbox) {
+      this.checkbox.addEventListener('click', () => this.state.checked ? this.uncheck() : this.check());
+    }
   }
 
   check() {
@@ -61,3 +67,5 @@ export default class Row extends Component {
     );
   }
 }
+
+Row.childContextTypes = { selectableCallback: React.PropTypes.func };

@@ -131,7 +131,7 @@ export default class CheckboxGroup extends Component {
                   type='checkbox'
                   disabled={option[this.optionDisabledProp] || this.state.disabled}
                   value={option[this.optionKeyProp]}
-                  defaultChecked={this.state.values.length > 0 && this.state.values.includes(option[this.optionKeyProp])}
+                  checked={this.state.values.length > 0 && this.state.values.includes(option[this.optionKeyProp])}
                   ref={this.ref.bind(this)}
                   {...this.checkboxProps}
                 />

@@ -7,26 +7,21 @@ export default class Button extends Component {
 
     const { type, disabled, disableOnInvalid, ...buttonProps } = props;
 
-    if(type && type !== 'button')
-      throw new Error('Button component works only with type button.');
+    if(type && type !== 'button') throw new Error('Button component works only with type button.');
 
-    this.state = {
-      disabled: disabled || true
-    };
+    this.state = { disabled: disabled || true };
 
     this.disableOnInvalid = disableOnInvalid;
     this.buttonProps = buttonProps;
-  }
 
-  componentDidMount() {
-    this.setup();
+    this.init();
   }
 
   componentWillReceiveProps(nextProps) {
     this.update(nextProps);
   }
 
-  setup() {
+  init() {
     Emitter.on('disable-button', () => this.setState({ disabled: true }));
     Emitter.on('enable-button', () => this.setState({ disabled: false }));
   }

@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 import Accordion from './accordion';
 import Item from './item';
 
-export default ({ children, items }) => (
+export default ({ children, items, locale }) => (
   <div className='menu'>
     <ul>
       {
@@ -15,12 +15,14 @@ export default ({ children, items }) => (
                 id={item.id}
                 icon={item.icon}
                 label={item.label}
+                locale={locale}
                 items={item.innerItems}
-                selectedItem={browserHistory.getCurrentLocation().pathname}>
+                selectedItem={browserHistory.getCurrentLocation().pathname.replace(`/${locale}`, '')}>
               </Accordion>
             : <Item
-                active={item.path === browserHistory.getCurrentLocation().pathname}
+                active={item.path === browserHistory.getCurrentLocation().pathname.replace(`/${locale}`, '')}
                 key={item.label}
+                locale={locale}
                 path={item.path}
                 icon={item.icon}
                 label={item.label}>

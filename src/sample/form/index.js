@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Form, Input, Dropdown, CheckboxGroup, RadioGroup, TextArea, Button } from '../../lib/form';
+import { Form, Input, Dropdown, CheckboxGroup, RadioGroup, InputFile, ProfileImage, TextArea, Button } from '../../lib/form';
 
 export default class FormSample extends Component {
   constructor() {
@@ -20,6 +20,14 @@ export default class FormSample extends Component {
       <div style={{ maxWidth: '600px', paddingTop: '50px', margin: '0 auto' }}>
         <Form model={this.foo}>
           <h1>Form</h1>
+
+          <ProfileImage
+            circular={true}
+            modelProp='photo'
+          >
+            Choose
+          </ProfileImage>
+
           <Input
             type='text'
             label='Input'
@@ -32,6 +40,15 @@ export default class FormSample extends Component {
               { rule: /foo/, errorMessage: 'Input invalid format.' }
             ]}
           />
+          <InputFile
+            clearButton={true}
+            placeholder='No file.'
+            label='File'
+            required={{errorMessage: 'File is required.'}}
+            modelProp='file'
+          >
+            Choose
+          </InputFile>
           <Dropdown
             label='Dropdown'
             value='321321'
@@ -112,6 +129,13 @@ export default class FormSample extends Component {
               `
                 <Form model={this.foo}>
                   <h1>Form</h1>
+
+                  <ProfileImage
+                    circular={true}
+                    modelProp='photo'
+                    text='Choose'
+                  />
+
                   <Input
                     type='text'
                     label='Input'
@@ -124,6 +148,15 @@ export default class FormSample extends Component {
                       { rule: /foo/, errorMessage: 'Input invalid format.' }
                     ]}
                   />
+                  <InputFile
+                    closeButton={true}
+                    placeholder='No file.'
+                    label='File'
+                    required={{errorMessage: 'File is required.'}}
+                    modelProp='file'
+                  >
+                    Choose
+                  </InputFile>
                   <Dropdown
                     label='Dropdown'
                     value='321321'
