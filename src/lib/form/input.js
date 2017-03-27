@@ -49,6 +49,7 @@ export default class Input extends Component {
 
     if(this.validateOn === 'blur') {
       this.input.addEventListener('blur', this.handle.bind(this));
+      this.input.addEventListener('input', () => this.setState({ value: this.input.value }));
     } else {
       this.input.addEventListener('input', this.handle.bind(this));
     }
@@ -111,7 +112,7 @@ export default class Input extends Component {
       SetByDot(this.model, this.modelProp, this.input.value);
     }
 
-    Emitter.emit('data', this.input.value);
+    Emitter.emit('input-data', this.input.value);
   }
 
   render() {

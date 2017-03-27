@@ -91,7 +91,7 @@ export default class InputFile extends Component {
           fileName: file.name
         });
 
-        Emitter.emit('data', event.target.result);
+        Emitter.emit('input-data', event.target.result);
 
         SetByDot(this.model, this.modelProp, event.target.result);
       };
@@ -111,7 +111,7 @@ export default class InputFile extends Component {
       fileName: this.placeholder
     });
 
-    Emitter.emit('data', event.target.result);
+    Emitter.emit('input-data', event.target.result);
   }
 
   render() {

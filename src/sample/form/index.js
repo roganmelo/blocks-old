@@ -40,7 +40,7 @@ export default class FormSample extends Component {
               { rule: /foo/, errorMessage: 'Input invalid format.' }
             ]}
           />
-          <InputFile
+        <InputFile
             clearButton={true}
             placeholder='No file.'
             label='File'

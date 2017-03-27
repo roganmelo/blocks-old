@@ -22,11 +22,14 @@ export default class Form extends Component {
     return { model: this.model };
   }
 
+  componentDidMount() {
+
+  }
+
   init() {
     Emitter.on('new-input', field => this.fields = [...this.fields, ...field]);
-    Emitter.on('data', () => this.toggleDisableButton());
-
-    this.toggleDisableButton();
+    Emitter.on('new-button', () => this.toggleDisableButton());
+    Emitter.on('input-data', () => this.toggleDisableButton());
   }
 
   toggleDisableButton() {

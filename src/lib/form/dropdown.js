@@ -93,7 +93,7 @@ export default class Dropdown extends Component {
       SetByDot(this.model, this.modelProp, this.select.value);
     }
 
-    Emitter.emit('data', this.select.value);
+    Emitter.emit('input-data', this.select.value);
   }
 
   render() {

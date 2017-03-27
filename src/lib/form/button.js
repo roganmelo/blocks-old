@@ -17,6 +17,10 @@ export default class Button extends Component {
     this.init();
   }
 
+  componentDidMount() {
+    this.setup();
+  }
+
   componentWillReceiveProps(nextProps) {
     this.update(nextProps);
   }
@@ -24,6 +28,12 @@ export default class Button extends Component {
   init() {
     Emitter.on('disable-button', () => this.setState({ disabled: true }));
     Emitter.on('enable-button', () => this.setState({ disabled: false }));
+  }
+
+  setup() {
+    if(this.disableOnInvalid) {
+      Emitter.emit('new-button');
+    }
   }
 
   update(props) {

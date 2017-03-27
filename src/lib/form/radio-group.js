@@ -88,7 +88,7 @@ export default class RadioGroup extends Component {
 
     SetByDot(this.model, this.modelProp, event.target.value, this.name);
 
-    Emitter.emit('data', event.target.value);
+    Emitter.emit('input-data', event.target.value);
   }
 
   render() {

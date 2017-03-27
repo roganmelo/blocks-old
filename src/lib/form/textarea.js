@@ -109,7 +109,7 @@ export default class TextArea extends Component {
       SetByDot(this.model, this.modelProp, this.textarea.value);
     }
 
-    Emitter.emit('data', this.textarea.value);
+    Emitter.emit('input-data', this.textarea.value);
   }
 
   render() {

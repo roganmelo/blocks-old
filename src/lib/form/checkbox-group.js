@@ -115,7 +115,7 @@ export default class CheckboxGroup extends Component {
 
     SetByDot(this.model, this.modelProp, event.target.value, event.target.checked);
 
-    Emitter.emit('data', event.target.value);
+    Emitter.emit('input-data', event.target.value);
   }
 
   render() {
